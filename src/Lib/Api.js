@@ -23,7 +23,7 @@ class Api {
 
     meta() {
         return axios.get('meta').then((response) => {
-            return response.data.settings
+            return response.data
         })
     }
 

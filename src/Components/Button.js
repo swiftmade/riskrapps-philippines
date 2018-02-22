@@ -60,39 +60,40 @@ const styles = StyleSheet.create({
         marginRight: 8,
         fontSize: 16,
     },
-  button_container: {
-    padding: 16,
-    width: "100%",
-    backgroundColor: Colors.lightBlue
-  },
-  button_text: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#fff"
-  },
-  login_container: {},
-  login_text: {},
-  menu_container: {
-    marginBottom: 8,
-    backgroundColor: Colors.lightBlue
-  },
-  menu_text: {},
-  menu_primary_container: {
-    backgroundColor: Colors.darkGreen
-  },
-  menu_primary_text: {},
-  menu_grey_container: {
-      backgroundColor: '#e9e9e9'
-  },
-  menu_grey_text: {
-      color: Colors.textColor
-  },
-  link_container: {
-      backgroundColor: '#fff'
-  },
-  link_text: {
-      fontSize: 12,
-      color: '#b4b4b4'
-  }
+    button_container: {
+        padding: 16,
+        width: "100%",
+        maxWidth: 340,
+        backgroundColor: Colors.lightBlue
+    },
+    button_text: {
+        fontSize: 14,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#fff"
+    },
+    login_container: {},
+    login_text: {},
+    menu_container: {
+        marginBottom: 8,
+        backgroundColor: Colors.lightBlue
+    },
+    menu_text: {},
+    menu_primary_container: {
+        backgroundColor: Colors.darkGreen
+    },
+    menu_primary_text: {},
+    menu_grey_container: {
+        backgroundColor: '#e9e9e9'
+    },
+    menu_grey_text: {
+        color: Colors.textColor
+    },
+    link_container: {
+        backgroundColor: '#fff'
+    },
+    link_text: {
+        fontSize: 12,
+        color: '#b4b4b4'
+    }
 });

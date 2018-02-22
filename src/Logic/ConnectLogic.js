@@ -20,12 +20,12 @@ class ConnectLogic {
 
     async downloadIcon() {
         // TODO: Ignore if the icon download fails, it's not critical
-        const icon = Session.get('icon_medium')
+        const icon = Session.get('settings.icon_medium')
         if ( ! icon) {
             return
         }
         await RNFS.downloadFile({
-            fromUrl: Session.get('url') + icon,
+            fromUrl: Session.get('settings.url') + icon,
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png'
         })
     }

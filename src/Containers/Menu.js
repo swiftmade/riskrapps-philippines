@@ -16,6 +16,7 @@ class Menu extends Component {
     super(props)
     this.state = {
       title: '',
+      version: '',
       updating: false
     }
     this.newSubmission = this.newSubmission.bind(this)
@@ -24,9 +25,10 @@ class Menu extends Component {
     this.exit = this.exit.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
       this.setState({
-        title: Session.get("title.en", "School Safety Self-Assessment Portal")
+        title: Session.get("settings.title.en", "School Safety Self-Assessment Portal"),
+        version: Session.get('survey.version'),
       });
   }
 
@@ -58,12 +60,15 @@ class Menu extends Component {
     return <Container center>
         <Image source={Images.logo()} defaultSource={Images.ssas} style={{ width: 90, height: 90, marginTop: 8 }} />
         <Text title>{this.state.title}</Text>
-        <View style={{ marginTop: 16, width: "100%" }}>
+        <View style={{ marginTop: 16, width: "100%", justifyContent: 'center', alignItems: 'center' }}>
           <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
           <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
           <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />
           <Button link title="Connect to other domain" icon="chevron-circle-left" style={{ marginTop: 16 }} onPress={this.exit} />
         </View>
+        <Text style={{ color: "#d1d1d1", position: "absolute", bottom: 16 }}>
+          Survey version: {this.state.version}
+        </Text>
       </Container>;
   }
 
