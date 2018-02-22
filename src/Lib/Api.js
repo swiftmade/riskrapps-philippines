@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Session from './Session'
 import { SERVER_URL } from 'react-native-dotenv'
 
 class Api {
@@ -17,8 +18,7 @@ class Api {
     }
 
     setDomainFromSession(session) {
-        // TODO: Implement
-        this._configure()
+        this.setDomain(Session.get('domain'))
     }
 
     meta() {

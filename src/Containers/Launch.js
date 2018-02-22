@@ -3,6 +3,7 @@ import Images from "../Constants/Images";
 import { Image } from "react-native";
 import Container from "../Components/Container";
 import Text from "../Components/Text";
+import Api from "../Lib/Api";
 import Session from "../Lib/Session";
 import {Actions} from "react-native-router-flux";
 
@@ -15,6 +16,7 @@ class Launch extends Component {
         await timeout(250)
         await Session.restoreSession()
         if (Session.hasValidSession()) {
+            Api.setDomainFromSession()
             Actions.reset('menu')
             return
         }

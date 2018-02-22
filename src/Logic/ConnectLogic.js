@@ -2,10 +2,17 @@ import Api from '../Lib/Api'
 import Session from "../Lib/Session";
 import RNFS from "react-native-fs";
 
-class UpdateLogic {
+class ConnectLogic {
 
-    async handle() {
+    async handle(domain) {
+        
+        Api.setDomain(domain)
+
+        const session = await Api.meta()
+        session.domain = domain
+
         await Promise.all([
+            Session.set(session),
             this.downloadSurvey(),
             this.downloadIcon(),
         ])
@@ -31,4 +38,4 @@ class UpdateLogic {
     }
 }
 
-export default new UpdateLogic
+export default new ConnectLogic

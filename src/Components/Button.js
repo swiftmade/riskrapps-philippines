@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     icon: {
         marginTop:1,
         marginRight: 8,
-        fontSize: 18,
+        fontSize: 16,
     },
   button_container: {
     padding: 16,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightBlue
   },
   button_text: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
     color: "#fff"

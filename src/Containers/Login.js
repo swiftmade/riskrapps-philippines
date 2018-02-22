@@ -4,7 +4,7 @@ import Colors from "../Constants/Colors";
 import Container from "../Components/Container";
 import Button from "../Components/Button";
 import Text from "../Components/Text";
-import LoginLogic from '../Logic/LoginLogic'
+import ConnectLogic from '../Logic/ConnectLogic'
 import { Actions } from "react-native-router-flux";
 import Alerts from "../Lib/Alerts"
 
@@ -32,7 +32,7 @@ class Login extends Component
         this.setState({busy: true})
 
         try {
-            await LoginLogic.handle(this.state.domain)
+            await ConnectLogic.handle(this.state.domain)
             Actions.reset("menu");
         } catch (error) {
             Alerts.error('Oops', error.toString())
