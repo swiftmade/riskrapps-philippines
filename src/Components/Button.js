@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#fff"
     },
-    login_container: {},
+    login_container: {
+        backgroundColor: Colors.darkGreen
+    },
     login_text: {},
     menu_container: {
         marginBottom: 8,

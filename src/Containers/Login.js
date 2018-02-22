@@ -29,6 +29,12 @@ class Login extends Component
     }
 
     async login() {
+
+        if ( ! this.state.domain.trim()) {
+            Alerts.error('Domain is empty', 'Please enter your domain before pressing connect.')
+            return
+        }
+        
         this.setState({busy: true})
 
         try {
@@ -59,7 +65,8 @@ class Login extends Component
               value={this.state.domain}
               onChangeText={(text) => this.setState({domain: text})}
               style={styles.input}
-              placeholderTextColor="rgba(0,0,0,0.4)"
+              placeholderTextColor="rgba(255,255,255,0.5)"
+              underlineColorAndroid="transparent"
               placeholder="enter domain"
               autoCapitalize="none"
               autoCorrect={false}
@@ -73,29 +80,28 @@ class Login extends Component
 }
 
 const styles = StyleSheet.create({
-    inputWrapper: {
-        width: '100%',
-        borderWidth: 1,
-        borderColor: Colors.darkBlue,
-        flexDirection: 'row',
-        padding:16,
-        marginTop:32,
-        marginBottom: 8,
-    },
-    input: {
-        flex: 1,
-        color: Colors.darkBlue,
-        borderBottomWidth: 1,
-        fontSize: 22,
-        textAlign: 'center',
-        borderColor: 'rgba(0,0,0,0.4)',
-        marginRight: 4,
-    },
-    domain: {
-        marginTop:0,
-        fontSize: 22,
-        color: Colors.darkBlue,
-    },
-})
+  inputWrapper: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: Colors.lightBlue,
+    flexDirection: "row",
+    marginTop: 32,
+    marginBottom: 8,
+    maxWidth: 340,
+  },
+  input: {
+    flex: 1,
+    color: '#fff',
+    fontSize: 22,
+    textAlign: "center",
+    marginRight: 4,
+    backgroundColor: Colors.lightBlue,
+  },
+  domain: {
+    fontSize: 22,
+    color: Colors.darkBlue,
+    margin: 8,
+  }
+});
 
 export default Login
