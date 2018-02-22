@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Colors from "../Constants/Colors";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/dist/FontAwesome";
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 
 export default class extends Component {
@@ -27,7 +27,10 @@ export default class extends Component {
         }
         if (this.props.menu_grey) {
           classes.push("menu_grey");
-        }        
+        }
+        if (this.props.link) {
+          classes.push("link");
+        }                
         
         const textClasses = classes.map(cls => styles[cls + "_text"]);
         
@@ -84,5 +87,12 @@ const styles = StyleSheet.create({
   },
   menu_grey_text: {
       color: Colors.textColor
+  },
+  link_container: {
+      backgroundColor: '#fff'
+  },
+  link_text: {
+      fontSize: 12,
+      color: '#b4b4b4'
   }
 });

@@ -21,10 +21,14 @@ class Api {
         this._configure()
     }
 
-    connect() {
-        return axios.get('connect').then((response) => {
-            return response.data
+    meta() {
+        return axios.get('meta').then((response) => {
+            return response.data.settings
         })
+    }
+
+    surveyJsonUrl() {
+        return axios.defaults.baseURL + '/survey_download'
     }
 }
 

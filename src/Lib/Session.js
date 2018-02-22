@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import {AsyncStorage} from 'react-native'
 
 const sessionKey = '@SSAS:Session'
@@ -28,6 +29,15 @@ class Session {
     async set(session) {
         this.session = session
         await AsyncStorage.setItem(sessionKey, JSON.stringify(session))
+    }
+
+    async destroy() {
+        this.session = null
+        await AsyncStorage.removeItem(sessionKey)
+    }
+
+    get(key) {
+        return _.get(this.session, key)
     }
 }
 
