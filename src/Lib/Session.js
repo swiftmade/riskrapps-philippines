@@ -24,6 +24,11 @@ class Session {
         }
         return null
     }
+
+    async set(session) {
+        this.session = session
+        await AsyncStorage.setItem(sessionKey, JSON.stringify(session))
+    }
 }
 
 

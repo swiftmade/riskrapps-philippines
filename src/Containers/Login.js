@@ -4,6 +4,10 @@ import Colors from "../Constants/Colors";
 import Container from "../Components/Container";
 import Button from "../Components/Button";
 import Text from "../Components/Text";
+import LoginLogic from '../Logic/LoginLogic'
+import { Actions } from "react-native-router-flux";
+import Alerts from "../Lib/Alerts"
+
 import {
   Image,
   TextInput,
@@ -17,16 +21,24 @@ class Login extends Component
     constructor(props) {
         super(props)
         this.state = {
+            domain: '',
             busy: false
         }
 
         this.login = this.login.bind(this)
     }
 
-    login() {
-        this.setState({
-            busy: true
-        })
+    async login() {
+        this.setState({busy: true})
+
+        try {
+            await LoginLogic.handle(this.state.domain)
+            Actions.reset("menu");
+        } catch (error) {
+            Alerts.error('Oops', error.toString())
+            // TODO: Show error
+            this.setState({busy: false})
+        }
     }
     
     renderButton() {
@@ -42,7 +54,17 @@ class Login extends Component
             <Text title>School Safety Self Assessment Portal</Text>
 
             <View style={styles.inputWrapper}>
-              <TextInput editable={!this.state.busy} style={styles.input} placeholderTextColor="rgba(0,0,0,0.4)" placeholder="enter domain" autoCapitalize="none" autoCorrect={false} spellCheck={false} />
+              
+              <TextInput editable={!this.state.busy}
+              value={this.state.domain}
+              onChangeText={(text) => this.setState({domain: text})}
+              style={styles.input}
+              placeholderTextColor="rgba(0,0,0,0.4)"
+              placeholder="enter domain"
+              autoCapitalize="none"
+              autoCorrect={false}
+              spellCheck={false} />
+              
               <Text style={styles.domain}>.riskrapps.net</Text>
             </View>
             {this.renderButton()}
