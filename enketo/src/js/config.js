@@ -8,5 +8,5 @@ module.exports = {
 		"name": "satellite"
 	}],
 	"googleApiKey": "",
-	"submission_url": "http://laos.riskrapps.net/openrosa/submissions"
+	"swipePage": false,
 }

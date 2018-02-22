@@ -66,7 +66,6 @@ var Survey = {
 
     loadSurvey: function() {
         return new Promise(function(resolve, reject) {
-            alert(searchParams.get("json"));
             $.getJSON(searchParams.get('json'), function(survey) {
                 resolve(survey);
             });
@@ -78,7 +77,7 @@ var Survey = {
             i18n.set(searchParams.get('lang'));
         }
         var lang = i18n.get();
-        this.form.getView().langs.setAll(lang == 'en' ? 'default' : lang);
+        this.form.langs.setAll(lang == 'en' ? 'default' : lang);
     },
 
     initializeForm: function(modelStr, instanceStr, submitted) {
@@ -102,7 +101,7 @@ var Survey = {
     },
 
     customNextPage: function() {
-        var that = this.form.getView().pages;
+        var that = this.form.pages;
         var currentIndex, next, newIndex;
         that.updateAllActive();
         currentIndex = that.getCurrentIndex();
