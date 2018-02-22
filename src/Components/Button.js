@@ -1,8 +1,16 @@
 import React, {Component} from 'react'
 import Colors from "../Constants/Colors";
+import Icon from "react-native-vector-icons/FontAwesome";
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 
 export default class extends Component {
+
+    renderIcon(style) {
+        if (!this.props.icon) {
+            return null
+        }
+        return <Icon name={this.props.icon} color="#fff" style={[style, styles.icon]} />
+    }
 
     render() {
 
@@ -11,29 +19,70 @@ export default class extends Component {
         if (this.props.login) {
             classes.push('login')
         }
-
-        return <View style={classes.map(cls => styles[cls + "_container"])}>
+        if (this.props.menu) {
+          classes.push('menu')
+        }        
+        if (this.props.menu_primary) {
+            classes.push("menu_primary");
+        }
+        if (this.props.menu_grey) {
+          classes.push("menu_grey");
+        }        
+        
+        const textClasses = classes.map(cls => styles[cls + "_text"]);
+        
+        return <View style={classes
+              .map(cls => styles[cls + "_container"])
+              .concat([this.props.style])}>
             <TouchableOpacity onPress={this.props.onPress}>
-              <Text style={classes.map(cls => styles[cls+"_text"])}>
-                {this.props.title.toUpperCase()}
-              </Text>
+              <View style={styles.contents}>
+                {this.renderIcon(textClasses)}
+                <Text style={textClasses}>
+                  {this.props.title.toUpperCase()}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>;
     }
 }
 
 const styles = StyleSheet.create({
-    button_container: {},
-    button_text: {},
-    login_container: {
-        padding: 16,
-        width: '100%',
-        backgroundColor: Colors.lightBlue
+    contents: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    login_text: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+    icon: {
+        marginTop:1,
+        marginRight: 8,
+        fontSize: 18,
     },
+  button_container: {
+    padding: 16,
+    width: "100%",
+    backgroundColor: Colors.lightBlue
+  },
+  button_text: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#fff"
+  },
+  login_container: {},
+  login_text: {},
+  menu_container: {
+    marginBottom: 8,
+    backgroundColor: Colors.lightBlue
+  },
+  menu_text: {},
+  menu_primary_container: {
+    backgroundColor: Colors.darkGreen
+  },
+  menu_primary_text: {},
+  menu_grey_container: {
+      backgroundColor: '#e9e9e9'
+  },
+  menu_grey_text: {
+      color: Colors.textColor
+  }
 });

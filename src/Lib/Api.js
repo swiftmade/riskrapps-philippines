@@ -23,7 +23,7 @@ class Api {
 
     connect() {
         return axios.get('connect').then((response) => {
-            return respones.data
+            return response.data
         })
     }
 }
