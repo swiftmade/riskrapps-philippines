@@ -39,7 +39,7 @@ class Login extends Component
 
         try {
             await ConnectLogic.handle(this.state.domain)
-            Actions.reset("menu");
+            Actions.reset("launch");
         } catch (error) {
             Alerts.error('Oops', error.toString())
             // TODO: Show error

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Submissions</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/toastr.min.css"/>
+    <style>
+    [ng-cloak] {
+        display:none;
+    }
+    </style>
+
+</head>
+<body>
+
+<div class="container" ng-app="app" ng-controller="SubmissionsCtrl" ng-cloak="true">
+
+    <div>
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="uploadAll()">
+                <i class="fa fa-upload"></i><span data-i18n="submissions.upload_all">Upload All</span>
+            </button>
+            <a href="index.html" class="btn btn-danger">
+                <i class="fa fa-remove"></i>
+            </a>
+        </div>
+
+        <h3 data-i18n="submissions.title"></h3>
+
+    </div>
+
+    <table class="table table-hover table-striped">
+        <thead>
+        <th data-i18n="submissions.name">Session Name</th>
+        <th data-i18n="submissions.hint">Hint</th>
+        <th data-i18n="submissions.size">Size</th>
+        <th data-i18n="submissions.created_at">Created At</th>
+        <th width="20%"></th>
+        </thead>
+        <tbody id="packet-rows">
+
+        <tr ng-repeat="packet in packets | orderBy:'-date'">
+            <td>{{ packet.name }}</td>
+            <td>{{ packet.hint }}</td>
+            <td>{{ packet.size | fileSize }}</td>
+            <td>{{ packet.date | date }}</td>
+            <td>
+                <progress value="packet.progress" ng-if="packet.uploading"></progress>
+                <button class="btn btn-primary" ng-show="!packet.uploading && !packet.uploaded"
+                        ng-click="upload(packet)"><i
+                        class="fa fa-upload"></i> <span data-i18n="submissions.upload_single">Upload This</span>
+                </button>
+                <div ng-if="packet.uploaded">
+                    <i class="fa fa-check-circle-o"></i> <span data-i18n="uploaded">Uploaded!</span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="cordova.js"></script>
+<script src="build/js/i18n-bundle.js"></script>
+<script src="build/js/submissions-bundle.js"></script>
+</body>
+</html>

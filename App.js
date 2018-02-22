@@ -32,10 +32,10 @@ export default class App extends Component {
   render() {
     return <View style={{ flex: 1 }}>
         <Router>
-          <Stack key="root">
-            <Scene key="launch" hideNavBar={true} component={Launch} />
-            <Scene key="login" hideNavBar={true} component={Login} />
-            <Scene key="menu" hideNavBar={true} component={Menu} />
+          <Stack key="root" hideNavBar={true}>
+            <Scene key="launch" component={Launch} />
+            <Scene key="login" component={Login} />
+            <Scene key="menu" component={Menu} />
             <Scene key="survey" component={Survey} />
             <Scene key="upload" component={Upload} />
           </Stack>

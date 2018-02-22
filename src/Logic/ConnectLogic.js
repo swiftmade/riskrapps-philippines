@@ -27,14 +27,14 @@ class ConnectLogic {
         await RNFS.downloadFile({
             fromUrl: Session.get('settings.url') + icon,
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png'
-        })
+        }).promise
     }
 
     async downloadSurvey() {
         await RNFS.downloadFile({
             fromUrl: Api.surveyJsonUrl(),
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.json'
-        })
+        }).promise
     }
 }
 
