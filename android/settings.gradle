@@ -1,0 +1,3 @@
+rootProject.name = 'ssas_mobile'
+
+include ':app'
