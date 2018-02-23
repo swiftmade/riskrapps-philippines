@@ -493,6 +493,12 @@ bootstrap-datepicker@1.7.x:
   dependencies:
     jquery ">=1.7.1 <4.0.0"
 
+bootstrap-select@^1.12.4:
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/bootstrap-select/-/bootstrap-select-1.12.4.tgz#7f15d3c0ce978868d9c09c70f96624f55fa02ee1"
+  dependencies:
+    jquery ">=1.8"
+
 bootstrap-slider-basic@3.3.x:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/bootstrap-slider-basic/-/bootstrap-slider-basic-3.3.0.tgz#499a3d23a76018f7bd8c616e7ea44aa3d338f849"
@@ -3029,7 +3035,7 @@ jquery-touchswipe@^1.6.18:
   version "1.6.18"
   resolved "https://registry.yarnpkg.com/jquery-touchswipe/-/jquery-touchswipe-1.6.18.tgz#fd65a09611edc3fece8ef480ae48569d42f984e2"
 
-jquery@*, jquery@3.3.x, jquery@>=1.12.0, "jquery@>=1.7.1 <4.0.0":
+jquery@*, jquery@3.3.x, jquery@>=1.12.0, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 

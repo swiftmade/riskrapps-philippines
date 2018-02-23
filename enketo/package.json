@@ -17,6 +17,7 @@
     "angular": "^1.5.8",
     "bluebird": "^3.4.3",
     "bluebird-queue": "0.0.8",
+    "bootstrap-select": "^1.12.4",
     "enketo-core": "^4.9.0",
     "lodash": "^4.15.0",
     "moment": "^2.14.1",

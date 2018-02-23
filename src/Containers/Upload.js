@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import { WebView } from "react-native";
-import RNFS from "react-native-fs";
+import React, {Component} from 'react'
+import Files from '../Lib/Files'
+import HtmlView from '../Components/HtmlView'
 
-class Upload extends Component {
-  render() {
-    const basePath = "file://" + RNFS.MainBundlePath + "/www";
-    const path = basePath + "/submissions.html";
-
-    const source = {
-      uri: path,
-      baseUri: basePath
-    };
-
-    return <WebView source={source} />;
-  }
+class Upload extends Component
+{
+    getSource() {
+        const baseUri = Files.wwwFolder()
+        const uri = baseUri + '/submissions.html'
+        return { uri, baseUri }
+    }    
+    
+    render() {
+        return <HtmlView source={this.getSource()} />
+    }
 }
 
-export default Upload;
+export default Upload   

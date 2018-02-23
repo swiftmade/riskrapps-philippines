@@ -10,6 +10,7 @@ class Files {
 
     _androidWwwFolder() {
         // TODO: Implent this for Android
+        return 'file:///android_asset/www'
     }
 
     wwwFolder() {

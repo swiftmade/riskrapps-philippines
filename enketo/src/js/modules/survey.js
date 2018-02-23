@@ -172,7 +172,7 @@ var Survey = {
 
     validate: function() {
         // DEBUG MODE?
-        //return Promise.resolve(true);
+        return Promise.resolve(true);
         var previousContent = $('.submit-form').html();
         $('.submit-form').attr('disabled', 'disabled').html('Validating...');
 
