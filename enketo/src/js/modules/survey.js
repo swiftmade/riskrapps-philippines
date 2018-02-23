@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var toastr = require('toastr');
 var Promise = require('bluebird');
 var Form = require('enketo-core/src/js/Form');
@@ -16,14 +15,6 @@ var Survey = {
     autoSave: null,
     saving: null,
 
-    // Names this survey entry based on school name
-    name: function() {
-        var schoolName = $('input[name="/' + this.formId + '/LG1/_1N"]').val();
-        var schoolId = $('input[name="/' + this.formId + '/LG1/_1C"]').val();
-
-        return schoolId + " - " + schoolName;
-    },
-
     initializeSurvey: function() {
         var that = this;
 
@@ -37,7 +28,7 @@ var Survey = {
                 SessionManager.start().then(function(session) {
                     that.initializeForm(modelStr, session.xml, session.submitted);
                     that.formId = $('form').attr('id');
-                    JumpTo(that.form.getView()); // Initialize Angular app
+                    JumpTo(that.form.view); // Initialize Angular app
                     that.modifyUI();
                     that.subscribeProgress();
 
@@ -139,18 +130,6 @@ var Survey = {
         });
     },
 
-    takePhoto: function() {
-        if (navigator && navigator.camera) {
-            navigator.camera.getPicture(function(url) {}, function() {
-                //
-            }, {
-                destinationType: Camera.DestinationType.FILE_URI,
-                saveToPhotoAlbum: true,
-                sourceType: Camera.PictureSourceType.CAMERA
-            });
-        }
-    },
-
     subscribeProgress: function() {
         var $progress = $('.form-progress');
         $(document).on('progressupdate.enketo', 'form.or', function(event, status) {
@@ -220,9 +199,8 @@ var Survey = {
         });
 
         return {
-            'hint': this.name(),
-            'instance_id': this.form.getInstanceID(),
-            'deprecated_id': this.form.getDeprecatedID(),
+            'instance_id': this.form.instanceID,
+            'deprecated_id': this.form.deprecatedID,
             'xml': this.form.getDataStr(),
             'files': files
         };

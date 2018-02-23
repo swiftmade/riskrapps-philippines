@@ -35,7 +35,6 @@
     <table class="table table-hover table-striped">
         <thead>
         <th data-i18n="submissions.name">Session Name</th>
-        <th data-i18n="submissions.hint">Hint</th>
         <th data-i18n="submissions.size">Size</th>
         <th data-i18n="submissions.created_at">Created At</th>
         <th width="20%"></th>
@@ -44,7 +43,6 @@
 
         <tr ng-repeat="packet in packets | orderBy:'-date'">
             <td>{{ packet.name }}</td>
-            <td>{{ packet.hint }}</td>
             <td>{{ packet.size | fileSize }}</td>
             <td>{{ packet.date | date }}</td>
             <td>

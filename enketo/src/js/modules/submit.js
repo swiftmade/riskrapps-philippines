@@ -1,10 +1,10 @@
 var $ = require('jquery');
 var _ = require('lodash');
 var Promise = require('bluebird');
-var config = require('../config');
 var storage = require('./storage');
 var Queue = require('bluebird-queue');
 var sessionRepo = storage.instance('sessions');
+var searchParams = require("./utils/search-params");
 var fileManager = require('enketo-core/src/js/file-manager');
 
 var utils = {
@@ -89,7 +89,7 @@ var utils = {
 
 	request: function(form, headers, progressCb) {
 		return new Promise(function(resolve, reject) {
-			$.ajax(config.submission_url, {
+			$.ajax(searchParams.get('submission_url'), {
 				'type': 'POST',
 				'data': form,
 				cache: false,

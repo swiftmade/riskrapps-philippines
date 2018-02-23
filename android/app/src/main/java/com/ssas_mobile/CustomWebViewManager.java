@@ -52,6 +52,10 @@ public class CustomWebViewManager extends ReactWebViewManager {
         
         // force web content debugging on
         WebView.setWebContentsDebuggingEnabled(true);
+        // User-Agent string is overridden because if Enketo thinks this is an Android device,
+        // It replaces native select elements instead of bootstrap dropdowns.
+        // Native select elements don't work at all in React Native WebViews on Android tablets for some reason.
+        webView.getSettings().setUserAgentString("ssas");
         return webView;
     }
 

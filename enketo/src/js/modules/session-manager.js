@@ -20,7 +20,6 @@ var SessionManager = {
         this.browserMode = true;
         this.returnUrl = searchParams.get('returnUrl');
 
-        $('.take-photo').remove();
         $('.save-progress').remove();
 
         return BrowserSession().then(function(session) {
@@ -124,7 +123,6 @@ var SessionManager = {
     save: function(record) {
         var _this = this;
         this.session.xml = record.xml;
-        this.session.hint = record.hint;
         this.session._attachments = this.getAttachments(record.files);
         this.session.instance_id = record.instance_id;
         this.session.deprecated_id = record.deprecated_id;

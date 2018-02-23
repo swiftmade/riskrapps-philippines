@@ -1,14 +1,13 @@
-require('./modules/jquery-global');
-
 var Vue = require('vue');
-var $ = require('jquery');
+var $ = (window.jQuery = window.$ = require("jquery"));
 var toastr = require('toastr');
 var vue = require('./modules/app-vue');
+var support = require("./modules/support");
 // until all plugins are commonJS-friendly, expose jQuery globally
 window.Vue = Vue;
 
-var support = require('./modules/support');
 support.touch = true;
+
 toastr.options = {
     "positionClass": "toast-top-left"
 };
@@ -18,11 +17,7 @@ var Survey = require('./modules/survey');
 $(document).ready(function() {
     $('html').addClass('touch');
     Survey.initializeSurvey();
-
-    $('.take-photo').click(function() {
-        Survey.takePhoto();
-    });
-
+    
     $('.save-progress').click(function() {
         Survey.saveSession(true);
     });
