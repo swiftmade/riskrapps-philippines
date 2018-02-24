@@ -60,6 +60,29 @@ a:focus {
     z-index: 1900;
 }
 
+#jump-to-block > .wrapper {
+    position:relative;
+}
+
+#jump-to-header {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0px;
+    right: 0px;
+    padding: 0px 50px;
+    background-color: #f4f4f4;
+    z-index: 1901;
+}
+
+#jump-to-header > h3 {
+    flex: 1;
+}
+
+#jump-to-body {
+    margin-top:50px;
+}
+
 #jump-to-block ul {
     margin: 0px;
     padding: 0px;

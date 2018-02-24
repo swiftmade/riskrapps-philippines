@@ -4,7 +4,7 @@ var vAccordion = require('v-accordion');
 var app = angular.module('app', ['vAccordion']);
 var _ = require('lodash');
 
-module.exports = function (formView) {
+module.exports = function (form) {
     app.controller('jumpCtrl', function ($scope) {
         var rawPages = [];
         $scope.pages = {};
@@ -53,8 +53,11 @@ module.exports = function (formView) {
 
         $scope.jump = function (page) {
             $scope.accordion.collapseAll();
-            formView.pages.flipToPageContaining(page.el);
-            $('#jump-to-block').hide();
+            form.pages.flipToPageContaining(page.el);
+            setTimeout(() => {
+                $("#jump-to-block").hide();
+                $(window).scrollTop(0);
+            })
         };
 
         $('#jump-to-close').click(function () {

@@ -28,7 +28,7 @@ var Survey = {
                 SessionManager.start().then(function(session) {
                     that.initializeForm(modelStr, session.xml, session.submitted);
                     that.formId = $('form').attr('id');
-                    JumpTo(that.form.view); // Initialize Angular app
+                    JumpTo(that.form);
                     that.modifyUI();
                     that.subscribeProgress();
 

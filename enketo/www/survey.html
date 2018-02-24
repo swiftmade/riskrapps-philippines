@@ -65,28 +65,32 @@
 <div id="jump-to-block">
 
     <div class="wrapper">
+        <div id="jump-to-header">
+            <h3 data-i18n="survey.jump_to">Jump To</h3>
+            <a href="javascript:void(0);" id="jump-to-close"><i class="fa fa-close"></i> Close</a>
+        </div>
 
-        <a href="javascript:void(0);" id="jump-to-close"><i class="fa fa-close"></i> Close</a>
-
-        <h3 data-i18n="survey.jump_to">Jump To</h3>
-        <!--
-        <input type="text" ng-model="search.label" style="padding:22px;font-size:14pt;border:1px solid #b4b4b4;width:100%;"
-            placeholder="Filter Results"/>
-            -->
-        <div style="height:80%;overflow-x:hidden;overflow-y:auto;">
-            <v-accordion class="vAccordion--default" control="accordion">
-                <v-pane ng-repeat="(id, page) in pages track by $index">
-                    <v-pane-header>
-                        {{ page.label }}
-                    </v-pane-header>
-                    <v-pane-content>
-                        <a href="javascript:void(0);" ng-click="jump(page)"><span data-i18n="survey.jump"></span> {{ page.label }}</a>
-                        <div ng-if="page.items">
-                            <ng-include src="'accordion.html'"/>
-                        </div>
-                    </v-pane-content>
-                </v-pane>
-            </v-accordion>
+        <div id="jump-to-body">
+        
+            <!--
+            <input type="text" ng-model="search.label" style="padding:22px;font-size:14pt;border:1px solid #b4b4b4;width:100%;"
+                placeholder="Filter Results"/>
+                -->
+            <div style="height:80%;overflow-x:hidden;overflow-y:auto;">
+                <v-accordion class="vAccordion--default" control="accordion">
+                    <v-pane ng-repeat="(id, page) in pages track by $index">
+                        <v-pane-header>
+                            {{ page.label }}
+                        </v-pane-header>
+                        <v-pane-content>
+                            <a href="javascript:void(0);" ng-click="jump(page)"><span data-i18n="survey.jump"></span> {{ page.label }}</a>
+                            <div ng-if="page.items">
+                                <ng-include src="'accordion.html'"/>
+                            </div>
+                        </v-pane-content>
+                    </v-pane>
+                </v-accordion>
+            </div>
         </div>
     </div>
 </div>
