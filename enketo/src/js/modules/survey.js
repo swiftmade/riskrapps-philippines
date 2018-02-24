@@ -36,11 +36,12 @@ var Survey = {
                     that.toggleAutosave(true);
                     //
                     $header.show();
-                    $('#loading-block').remove();
+                    
                     setTimeout(() => {
+                        $("#loading-block").remove();
                         $(window).scrollTop(0);
+                        resolve();
                     })
-                    resolve();
                 });
             });
         });

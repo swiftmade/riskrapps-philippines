@@ -27,6 +27,7 @@ a:focus {
     margin: 0;
     text-align: center;
     color: white;
+    z-index: 3000; 
 }
 
 .form-header button, .form-header a {
