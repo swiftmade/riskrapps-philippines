@@ -49,7 +49,9 @@ v-pane-header {
 v-pane-header:focus {
     outline: none; }
 v-pane-header > div {
-    display: block; }
+    display: block;
+    max-width: calc(100% - 25px);    
+}
 
 v-pane-content {
     display:none;

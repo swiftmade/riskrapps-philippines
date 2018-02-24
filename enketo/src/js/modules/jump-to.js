@@ -67,6 +67,7 @@ module.exports = function (formView) {
 
     $('#jump-to').click(function () {
         $('#jump-to-block').show();
+        $(window).scrollTop(0);
     });
 
     $('#jump-to-block').hide();

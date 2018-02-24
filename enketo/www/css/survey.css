@@ -22,7 +22,7 @@ a:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #d70015;
+    background-color: #246AA6;
     padding: 0;
     margin: 0;
     text-align: center;
@@ -48,11 +48,11 @@ a:focus {
 #jump-to-block {
     display: none;
     position: absolute;
-    top: 75px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 75px);
-    background-color: #E4E4E4;
+    height: 100%;
+    background-color: rgba(255,255,255,0.95);
     padding: 50px;
     margin: 0;
     color: #333;
@@ -77,11 +77,30 @@ a:focus {
 }
 
 #jump-to-close {
-    position: absolute;
-    top: 12px;
-    right: 24px;
-    font-size: 30pt;
+    float: right;
+    padding-top: 5px;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: #666;
+    bo
+}
+
+#jump-to-close > i {
+    margin-right: 4px;
+}
+
+.jump-to-button {
+    color: #fff;
+    background-color: #246AA6;
+    display: block;
+    padding: 8px;
+    text-decoration: none;    
+}
+
+.jump-to-button:hover,.jump-to-button:active {
+    color: #fff;
+    background-color: #34A0CF;
 }
 
 .form-header {
@@ -234,7 +253,7 @@ h4 input[readonly]:not([type=radio]):not([type=checkbox]) {
     min-width: 34px !important;
     margin: 0;
     height: 3px;
-    background-color: #d70015;
+    background-color: #246AA6;
     z-index: 1000;
     -webkit-transition: all 1s ease-out;
     transition: all 1s ease-out;

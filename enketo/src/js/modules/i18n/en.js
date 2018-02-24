@@ -12,7 +12,7 @@ module.exports = {
 		"validate": "Validate",
 		"first": "First",
 		"last": "Last",
-		"search": "Search",
+		"jump_to": "Jump To",
 		"submit": "Validate &amp; Submit",
 		"back": "Back",
 		"next": "Next",

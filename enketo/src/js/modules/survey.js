@@ -37,6 +37,9 @@ var Survey = {
                     //
                     $header.show();
                     $('#loading-block').remove();
+                    setTimeout(() => {
+                        $(window).scrollTop(0);
+                    })
                     resolve();
                 });
             });
