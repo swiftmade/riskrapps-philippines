@@ -21,7 +21,7 @@
     "enketo-core": "^4.9.0",
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
-    "pouchdb": "^5.4.5",
+    "pouchdb": "^6.4.3",
     "toastr": "^2.1.2",
     "url-search-params": "^0.5.0",
     "v-accordion": "^1.6.0",

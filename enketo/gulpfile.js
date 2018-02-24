@@ -63,7 +63,7 @@ gulp.task('watch', function() {
         gulp.start('style');
     });
     */
-    watch(['www/src/**/*.js'], function() {
+    watch(['src/**/*.js'], function() {
         gulp.start(['browserify-app', 'browserify-submissions', 'browserify-localization']);
     });
 });
@@ -78,5 +78,5 @@ gulp.task('build', [
     //'style'
 ]);
 
-gulp.task('develop', ['build', 'watch']);
+gulp.task('dev', ['build', 'watch']);
 gulp.task('default', ['build']);

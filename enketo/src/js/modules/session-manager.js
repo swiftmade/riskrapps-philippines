@@ -102,8 +102,15 @@ var SessionManager = {
         var _this = this;
         var attachments = {};
 
+        console.log(this.session);
+        
+
         _.each(files, function(file) {
-            // Keep stubs..
+            /**
+             * If the file value is a string
+             * Then this is just a file name and should be marked as a stub
+             * This prevents our storage engine from rewriting the stored file for this file.
+             */ 
             if (typeof file == 'string') {
                 if (_this.session.hasOwnProperty('_attachments') && _this.session._attachments.hasOwnProperty(file)) {
                     attachments[file] = _this.session['_attachments'][file];
@@ -111,6 +118,7 @@ var SessionManager = {
                 }
                 return;
             }
+            console.log(file)
             attachments[file.name] = {
                 'content_type': file.type,
                 'data': file

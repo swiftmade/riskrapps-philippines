@@ -65,7 +65,7 @@ public class CustomWebViewModule extends ReactContextBaseJavaModule implements A
         final String TAKE_PHOTO = "Take a photo…";
         final String CHOOSE_FILE = "Choose an image file…";
         final String CANCEL = "Cancel";
-        
+
         this.filePathCallback = filePathCallback;
         
         // from https://stackoverflow.com/a/36306345/185651
@@ -84,7 +84,7 @@ public class CustomWebViewModule extends ReactContextBaseJavaModule implements A
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     try {
                         // need to specify a directory here; the download directory was the one that didn't end up giving me permissions errors
-                        outputFileUri = Uri.fromFile(File.createTempFile("rubix-image-", ".jpg",
+                        outputFileUri = Uri.fromFile(File.createTempFile("ssas-photo-", ".jpg",
                                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
                     } catch (java.io.IOException e) {
                     }
