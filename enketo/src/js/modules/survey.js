@@ -161,21 +161,23 @@ var Survey = {
 
     validate: function() {
         // DEBUG MODE?
-        return Promise.resolve(true);
-        var previousContent = $('.submit-form').html();
-        $('.submit-form').attr('disabled', 'disabled').html('Validating...');
+        // return Promise.resolve(true);
+        function disableSubmitButton() {
+            var previousContent = $('.submit-form').html();
+            $('.submit-form').attr('disabled', 'disabled').html('Validating...');
+            return new Promise(function(resolve) {
+                setTimeout(resolve);
+            });
+        }
 
         var that = this;
-        return new Promise(function(resolve, reject) {
-            //
-            that.form.validate().then(function(valid) {
-                $('.submit-form').html(previousContent).removeAttr('disabled');
-                if (valid) {
-                    resolve();
-                } else {
-                    throw new Error("Validation failed");
-                }
-            });
+        return disableSubmitButton().then(function() {
+            that.form.validate();
+        }).then(function(valid) {
+            $('.submit-form').html(previousContent).removeAttr('disabled');
+            if ( ! valid) {
+                throw new Error("Validation failed");
+            }
         });
     },
 
