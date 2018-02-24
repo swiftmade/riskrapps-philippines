@@ -1,5 +1,7 @@
 var Vue = require('vue');
 var $ = (window.jQuery = window.$ = require("jquery"));
+require('./modules/utils/overlay');
+
 var toastr = require('toastr');
 var vue = require('./modules/app-vue');
 var support = require("./modules/support");

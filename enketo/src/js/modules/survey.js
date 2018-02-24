@@ -2,7 +2,8 @@ var toastr = require('toastr');
 var Promise = require('bluebird');
 var Form = require('enketo-core/src/js/Form');
 var searchParams = require('./utils/search-params');
-var fileManager = require('enketo-core/src/js/file-manager');
+var appendRecordFiles = require("./record-files");
+var submitProgress = require('./submit-progress');
 //
 var JumpTo = require('./jump-to');
 var SessionManager = require('./session-manager');
@@ -62,6 +63,7 @@ var Survey = {
     loadSurvey: function() {
         return new Promise(function(resolve, reject) {
             $.getJSON(searchParams.get('json'), function(survey) {
+                survey.form = survey.form.replace(/jr:\/\/images\/https:\/\/www.dropbox.com\/s\/.*?\//g, "assets/");
                 resolve(survey);
             });
         });
@@ -106,6 +108,7 @@ var Survey = {
     },
 
     modifyUI: function() {
+        $('#submit-progress').hide();
         $('<br />').insertAfter('#form-title');
         $('#form-title').detach().insertAfter('.form-header .pull-right');
         $('input[type="file"]').attr('capture', 'camera');
@@ -115,6 +118,8 @@ var Survey = {
             this.customNextPage();
         }.bind(this));
 
+
+        /*
         var $imgTags = $('img');
         $imgTags.each(function() {
             var $el = $(this);
@@ -130,8 +135,9 @@ var Survey = {
             var parts = parser.pathname.split("/");
             var file = parts[parts.length - 1];
 
-            $(this).attr('src', 'assets/' + file);
-        });
+            $(this).at
+            *tr('src', 'assets/' + file);
+        });*/
     },
 
     subscribeProgress: function() {
@@ -178,14 +184,20 @@ var Survey = {
         // First, save all fields
         return this.validate()
             .then(function() {
+                submitProgress.show('Saving your session...');
                 return _this.saveSession();
+            }).then(function() {
+                submitProgress.show("Optimizing attachments...");
+                return SessionManager.optimize();
             })
             .then(function() {
+                submitProgress.show("Finalizing your submission...");
                 _this.toggleAutosave(false);
                 _this.stopLeaveCheck();
                 return SessionManager.end();
             })
             .catch(function(error) {
+                submitProgress.hide();
                 if (error.message == 'redirected!') {
                     throw error;
                 }
@@ -195,19 +207,26 @@ var Survey = {
     },
 
     getRecord: function() {
-        //
-        var files = fileManager.getCurrentFiles();
-        // Bring out any previously attached media
-        $('form.or input[type="file"][data-loaded-file-name]').each(function() {
-            files.push($(this).data('loaded-file-name'));
-        });
-
-        return {
+        var _this = this;
+        return Promise.resolve({
             'instance_id': this.form.instanceID,
             'deprecated_id': this.form.deprecatedID,
             'xml': this.form.getDataStr(),
-            'files': files
-        };
+        });
+    },
+
+    /**
+     * outcome must be either success or error
+     */
+    finishSaving: function(outcome, message) {
+        this.saving = null;
+        var $saveProgress = $(".save-progress");
+        $saveProgress.html('<i class="fa fa-save"></i>');
+        $saveProgress.removeAttr('disabled', 'disabled');
+
+        if (message) {
+            toastr[outcome](message)
+        }
     },
 
     saveSession: function(showMsg) {
@@ -217,25 +236,21 @@ var Survey = {
         }
         var _this = this;
         var $saveProgress = $('.save-progress');
-
         $saveProgress.html('<i class="fa fa-spinner fa-spin"></i>');
         $saveProgress.attr('disabled', 'disabled');
 
-        var finishSaving = function() {
-            _this.saving = null;
-            $saveProgress.html('<i class="fa fa-save"></i>');
-            $saveProgress.removeAttr('disabled', 'disabled');
-        };
-        return SessionManager.save(this.getRecord()).then(function() {
-            finishSaving();
-            if (showMsg) {
-                toastr.success(i18n._("survey.saved"));
-            }
-        }).catch(function(error) {
-            finishSaving();
-            toastr.error('An error occured while saving this sesssion...');
-            throw error;
-        });
+        return this.getRecord()
+            .then(appendRecordFiles)
+            .then(function(record) {
+                return SessionManager.save(record);
+            })
+            .then(function() {
+                _this.finishSaving("success", showMsg ? i18n._("survey.saved") : null);
+            })
+            .catch(function(error) {
+                _this.finishSaving("error", "An error occured while saving this sesssion...");
+                throw error;
+            });
     },
 
     saveAndExit: function() {

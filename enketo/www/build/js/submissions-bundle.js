@@ -93387,7 +93387,6 @@ var _ = require('lodash');
 window.PouchDB = PouchDB;
 
 function getStorageDriver(name) {
-
     var storage = new PouchDB(name, {
         adapter: 'idb',
         // We don't really want to keep revisions at all.

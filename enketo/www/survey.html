@@ -62,8 +62,8 @@
 
     </article>
 </div>
-<div id="jump-to-block">
 
+<div id="jump-to-block" class="overlay">
     <div class="wrapper">
         <div id="jump-to-header">
             <h3 data-i18n="survey.jump_to">Jump To</h3>
@@ -94,10 +94,16 @@
         </div>
     </div>
 </div>
-<div id="loading-block">
+<div id="loading-block" class="overlay">
     <h3 data-i18n="survey.loading"></h3>
     <p data-i18n="survey.wait"></p>
 </div>
+
+<div id="submit-progress" class="overlay">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+    <h5 id="submit-progress-text">Saving...</h5>
+</div>
+
 <div id="app">
 
     <modal :show.sync="showModal" :sessions.sync="sessions"></modal>

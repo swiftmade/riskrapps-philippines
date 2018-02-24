@@ -4,6 +4,7 @@ var submit = require('./submit');
 var vue = require('./app-vue');
 var Promise = require('bluebird');
 var storage = require('./storage');
+var Optimizer = require("./optimizer");
 var sessionRepo = storage.instance('sessions');
 var BrowserSession = require('./browser-session');
 var searchParams = require('./utils/search-params');
@@ -102,9 +103,6 @@ var SessionManager = {
         var _this = this;
         var attachments = {};
 
-        console.log(this.session);
-        
-
         _.each(files, function(file) {
             /**
              * If the file value is a string
@@ -118,7 +116,6 @@ var SessionManager = {
                 }
                 return;
             }
-            console.log(file)
             attachments[file.name] = {
                 'content_type': file.type,
                 'data': file
@@ -143,6 +140,13 @@ var SessionManager = {
             .then(function(session) {
                 _this.session = session;
             });
+    },
+
+    optimize: function() {
+        var _this = this;
+        return Optimizer(this.session).then(function(session) {
+            _this.session = session;
+        });
     },
 
     end: function() {
