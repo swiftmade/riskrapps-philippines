@@ -1,0 +1,3 @@
+[submodule "enketo"]
+	path = enketo
+	url = git@github.com:swiftmade/ssas-enketo.git
