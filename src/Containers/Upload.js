@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
 import Files from '../Lib/Files'
 import Session from "../Lib/Session";
+import Query from "../Lib/Query";
 import HtmlView from '../Components/HtmlView'
 
 class Upload extends Component
-{
-
-    openRosaUrl() {
-        return Session.get("settings.url") + "/openrosa/submissions";
-    }
-    
+{   
     getSource() {
         const baseUri = Files.wwwFolder()
-        const uri = baseUri + "/submissions.html?submission_url=" + this.openRosaUrl();
+        const uri = baseUri + "/submissions.html?" + Query({
+            base: Session.get('settings.url'),
+            server: 'openrosa/submissions',
+        });
+
         return { uri, baseUri }
     }    
 
