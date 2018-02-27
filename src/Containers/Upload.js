@@ -9,10 +9,11 @@ class Upload extends Component
     getSource() {
         const baseUri = Files.wwwFolder()
         const uri = baseUri + "/submissions.html?" + Query({
-            base: Session.get('settings.url'),
+            db: Session.get('domain'),
             server: 'openrosa/submissions',
-        });
-
+            base: Session.get('settings.url'),
+        })
+        
         return { uri, baseUri }
     }    
 

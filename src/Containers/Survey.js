@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import Files from '../Lib/Files'
-import HtmlView from '../Components/HtmlView'
 import Query from '../Lib/Query'
+import Files from "../Lib/Files"
+import Session from "../Lib/Session"
+import HtmlView from "../Components/HtmlView"
 
 class Survey extends Component
 {
@@ -9,9 +10,10 @@ class Survey extends Component
         const baseUri = Files.wwwFolder()
         const uri = baseUri + '/survey.html?' + Query({
             lang: 'en',
-            json: Files.surveyJson()
+            json: Files.surveyJson(),            
+            db: Session.get('domain'),
         })
-        
+
         return { uri, baseUri }
     }    
 
