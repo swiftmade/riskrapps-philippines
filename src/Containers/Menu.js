@@ -73,20 +73,19 @@ class Menu extends Component {
   
   renderMenu() {
     return <Container center>
-        <Image source={Images.logo()} defaultSource={Images.ssas} style={{ width: 90, height: 90, marginTop: 8 }} />
+        <Image source={Images.logo()} defaultSource={Images.ssas} style={styles.logo} />
         <Text title>{this.state.title}</Text>
-        <View style={{ marginTop: 16, width: "100%", justifyContent: "center", alignItems: "center" }}>
+        <View style={styles.buttons}>
           <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
           <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
           <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
         </View>
-        
-        <View style={styles.sponsors}>
-        {this.renderSponsorLogos()}
-        </View>
-
+      
         <View style={styles.footer}>
-        <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+          <View style={styles.sponsors}>
+          {this.renderSponsorLogos()}
+          </View>
+          <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
           <Text style={styles.footerText}>
             Survey version: {this.state.version}
           </Text>
@@ -103,7 +102,7 @@ class Menu extends Component {
 
   renderSponsorLogos() {
     return this.state.sponsors.map((item, index) => {
-        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 30}]} />
+        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 60}]} />
     })
   }
 
@@ -115,28 +114,41 @@ class Menu extends Component {
 }
 
 const styles = StyleSheet.create({
+  logo: {
+    width: 90,
+    height: 90,
+    marginTop: 8,
+  },
+  buttons: {
+    marginTop: 16,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 160,
+  },
   sponsors: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    flexWrap: 'wrap'
+    flexDirection: "row",
+    alignItems: "stretch",
+    flexWrap: "wrap"
   },
   sponsor: {
     marginTop: 16,
-    marginRight:4,
-    marginLeft:4,
+    marginRight: 4,
+    marginLeft: 4,
+    marginBottom: 16
   },
   exitButton: {
-    marginBottom:0,
-    padding: 0,
+    marginBottom: 0,
+    padding: 0
   },
   footer: {
     position: "absolute",
     bottom: 8,
-    flexDirection: 'column',
+    flexDirection: "column"
   },
   footerText: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
     color: Colors.textMute
   }
 });
