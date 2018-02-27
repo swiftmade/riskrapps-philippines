@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Container from "../Components/Container";
-import {View, Image, ActivityIndicator} from 'react-native'
 import Colors from "../Constants/Colors";
 import Images from '../Constants/Images'
 import Text from "../Components/Text";
@@ -9,6 +8,7 @@ import Session from "../Lib/Session";
 import ConnectLogic from "../Logic/ConnectLogic";
 import {Actions} from "react-native-router-flux";
 import Alerts from "../Lib/Alerts";
+import { View, Image, ActivityIndicator, StyleSheet } from "react-native";
 
 class Menu extends Component {
 
@@ -17,7 +17,8 @@ class Menu extends Component {
     this.state = {
       title: '',
       version: '',
-      updating: false
+      updating: false,
+      sponsors: [],
     }
     this.newSubmission = this.newSubmission.bind(this)
     this.uploadSubmissions = this.uploadSubmissions.bind(this)
@@ -30,6 +31,20 @@ class Menu extends Component {
         title: Session.get("settings.title.en", "School Safety Self-Assessment Portal"),
         version: Session.get('survey.version'),
       });
+
+      const sponsorLogos = Images.sponsors().map(sponsor => {
+        return new Promise((resolve) => {
+          Image.getSize(sponsor.uri, (width, height) => {
+            return resolve({sponsor, ratio: width / height})
+          })
+        })
+      })
+
+      Promise.all(sponsorLogos).then((all) => {
+        this.setState({
+          sponsors: all
+        })
+      })
   }
 
   newSubmission() {
@@ -60,15 +75,22 @@ class Menu extends Component {
     return <Container center>
         <Image source={Images.logo()} defaultSource={Images.ssas} style={{ width: 90, height: 90, marginTop: 8 }} />
         <Text title>{this.state.title}</Text>
-        <View style={{ marginTop: 16, width: "100%", justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ marginTop: 16, width: "100%", justifyContent: "center", alignItems: "center" }}>
           <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
           <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
-          <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />
-          <Button link title="Connect to other domain" icon="chevron-circle-left" style={{ marginTop: 16 }} onPress={this.exit} />
+          <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
         </View>
-        <Text style={{ color: "#d1d1d1", position: "absolute", bottom: 16 }}>
-          Survey version: {this.state.version}
-        </Text>
+        
+        <View style={styles.sponsors}>
+        {this.renderSponsorLogos()}
+        </View>
+
+        <View style={styles.footer}>
+        <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+          <Text style={styles.footerText}>
+            Survey version: {this.state.version}
+          </Text>
+        </View>
       </Container>;
   }
 
@@ -79,11 +101,44 @@ class Menu extends Component {
       </Container>;
   }
 
+  renderSponsorLogos() {
+    return this.state.sponsors.map((item, index) => {
+        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 30}]} />
+    })
+  }
+
   render() {
     return <View style={{flex:1}}>
         {this.state.updating ? this.renderLoading() : this.renderMenu()}
       </View>;
   }
 }
+
+const styles = StyleSheet.create({
+  sponsors: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    flexWrap: 'wrap'
+  },
+  sponsor: {
+    marginTop: 16,
+    marginRight:4,
+    marginLeft:4,
+  },
+  exitButton: {
+    marginBottom:0,
+    padding: 0,
+  },
+  footer: {
+    position: "absolute",
+    bottom: 8,
+    flexDirection: 'column',
+  },
+  footerText: {
+    flex: 1,
+    textAlign: 'center',
+    color: Colors.textMute
+  }
+});
 
 export default Menu;

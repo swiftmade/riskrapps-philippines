@@ -1,9 +1,14 @@
+import Files from '../Lib/Files'
 import Session from '../Lib/Session'
-import RNFS from 'react-native-fs'
 
 export default {
     ssas: require('../Assets/ssas.png'),
     logo() {
-        return {uri: 'file://' + RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png', scale: 1}
-    }
+        return {uri: Files.iconPath(), scale: 1}
+    },
+    sponsors() {
+        return Files.sponsorPaths().map(path => {
+            return {uri: path, scale: 1}
+        })
+    },
 }

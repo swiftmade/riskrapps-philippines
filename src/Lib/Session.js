@@ -36,8 +36,8 @@ class Session {
         await AsyncStorage.removeItem(sessionKey)
     }
 
-    get(key) {
-        return _.get(this.session, key)
+    get(key, def = null) {
+        return _.get(this.session, key, def)
     }
 }
 

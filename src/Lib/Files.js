@@ -20,7 +20,17 @@ class Files {
     }
 
     surveyJson() {
-        return 'file://' + RNFS.DocumentDirectoryPath + "/" + Session.get("domain") + ".json";
+        return 'file://' + RNFS.DocumentDirectoryPath + "/" + Session.get("domain") + ".json"
+    }
+
+    iconPath() {
+        return 'file://' + RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png'
+    }
+
+    sponsorPaths() {
+        return Session.get('sponsors', []).map((_, index) => {
+            return 'file://' + RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '_sponsor_' + index + '.png'
+        })
     }
 }
 

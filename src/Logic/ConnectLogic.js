@@ -11,11 +11,19 @@ class ConnectLogic {
         const session = await Api.meta()
         session.domain = domain
 
-        await Promise.all([
-            Session.set(session),
-            this.downloadSurvey(),
-            this.downloadIcon(),
-        ])
+        try {        
+            await Promise.all([
+                Session.set(session),
+                this.downloadSurvey(),
+                this.downloadIcon(),
+                this.downloadSponsorLogos(),
+            ])
+        } catch(error) {
+            // If any of these steps fail,
+            // Destroy the active session
+            Session.destroy()
+            throw error
+        }
     }
 
     async downloadIcon() {
@@ -25,7 +33,7 @@ class ConnectLogic {
             return
         }
         await RNFS.downloadFile({
-            fromUrl: Session.get('settings.url') + icon,
+            fromUrl: Session.get('settings.url') + encodeURI(icon),
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png'
         }).promise
     }
@@ -35,6 +43,17 @@ class ConnectLogic {
             fromUrl: Api.surveyJsonUrl(),
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.json'
         }).promise
+    }
+
+    async downloadSponsorLogos() {
+        const logoDownloads = Session.get('sponsors', []).map((photo, index) => {
+            return RNFS.downloadFile({
+                fromUrl: Session.get('settings.url') + encodeURI(photo),
+                toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '_sponsor_' + index + '.png'
+            }).promise
+        })
+
+        await Promise.all(logoDownloads)
     }
 }
 
