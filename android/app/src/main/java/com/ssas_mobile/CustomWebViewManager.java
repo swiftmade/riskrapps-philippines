@@ -1,12 +1,16 @@
 package com.ssas_mobile;
 
 import android.net.Uri;
+import android.os.Build;
+import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
 import android.webkit.WebView;
+import android.webkit.WebSettings;
+import android.webkit.WebSettings.RenderPriority;
 
 import com.facebook.react.common.build.ReactBuildConfig;
 import com.facebook.react.module.annotations.ReactModule;
@@ -41,7 +45,7 @@ public class CustomWebViewManager extends ReactWebViewManager {
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
-            
+
             // this is the addition method to react-native built-in
             // it calls the photo picker intent in a separate module apparently so all the parts that need to can access other bits in scope. I wish I understood more Java, but this is the way https://github.com/hushicai/ReactNativeAndroidWebView did it, and it seems to work
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
@@ -52,10 +56,23 @@ public class CustomWebViewManager extends ReactWebViewManager {
         
         // force web content debugging on
         WebView.setWebContentsDebuggingEnabled(true);
+        // Enable access to GPS
+        webView.getSettings().setGeolocationEnabled(true);
         // User-Agent string is overridden because if Enketo thinks this is an Android device,
         // It replaces native select elements instead of bootstrap dropdowns.
         // Native select elements don't work at all in React Native WebViews on Android tablets for some reason.
         webView.getSettings().setUserAgentString("ssas");
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.getSettings().setRenderPriority(RenderPriority.HIGH);
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // chromium, enable hardware acceleration
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            // older android version, disable hardware acceleration
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+
         return webView;
     }
 

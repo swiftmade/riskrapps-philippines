@@ -8,11 +8,12 @@ class Survey extends Component
 {
     getSource() {
         const baseUri = Files.wwwFolder()
-        const uri = baseUri + '/survey.html?' + Query({
-            lang: 'en',
-            json: Files.surveyJson(),            
-            db: Session.get('domain'),
-        })
+        const uri = baseUri + "/survey.html?" + Query({
+            lang: "en",
+            json: Files.surveyJson(),
+            db: Session.get("domain"),
+            // novalidate: true,
+        });
 
         return { uri, baseUri }
     }    

@@ -18,7 +18,7 @@ class Upload extends Component
     }    
 
     render() {
-        return <HtmlView source={this.getSource()} />
+        return <HtmlView source={this.getSource()} allowBackButton />
     }
 }
 

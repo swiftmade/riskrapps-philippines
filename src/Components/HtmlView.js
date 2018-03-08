@@ -24,7 +24,7 @@ class HtmlView extends Component
     }
 
     rejectBackButton() {
-        return true
+        return !this.props.hasOwnProperty('allowBackButton')
     }
 
     intercept(request) {
