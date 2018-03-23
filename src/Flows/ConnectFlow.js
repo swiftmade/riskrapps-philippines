@@ -2,7 +2,7 @@ import Api from '../Lib/Api'
 import Session from "../Lib/Session";
 import RNFS from "react-native-fs";
 
-class ConnectLogic {
+class ConnectFlow {
 
     async handle(domain) {
         
@@ -49,4 +49,4 @@ class ConnectLogic {
     }
 }
 
-export default new ConnectLogic
+export default new ConnectFlow

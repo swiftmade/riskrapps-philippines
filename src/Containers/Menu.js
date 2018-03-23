@@ -6,8 +6,7 @@ import Text from "../Components/Text";
 import PortalLogo from "../Components/PortalLogo";
 import Button from "../Components/Button";
 import Session from "../Lib/Session";
-import ConnectLogic from "../Logic/ConnectLogic";
-import {Actions} from "react-native-router-flux";
+import ConnectFlow from "../Flows/ConnectFlow";
 import Alerts from "../Lib/Alerts";
 import { View, Image, ActivityIndicator, StyleSheet } from "react-native";
 
@@ -59,7 +58,7 @@ class Menu extends Component {
   async checkForUpdates() {
     this.setState({updating: true})
     try {
-      await ConnectLogic.handle(Session.get('domain'))
+      await ConnectFlow.handle(Session.get('domain'))
       Actions.reset('launch')
     } catch(error) {
       Alerts.error("Oops", error.toString());

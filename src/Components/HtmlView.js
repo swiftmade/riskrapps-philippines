@@ -3,7 +3,6 @@ import {Alert} from 'react-native'
 import RNFS from 'react-native-fs'
 import Files from '../Lib/Files'
 import Container from '../Components/Container'
-import {Actions} from 'react-native-router-flux'
 import {BackHandler} from 'react-native'
 import CustomWebview from './CustomWebview'
 

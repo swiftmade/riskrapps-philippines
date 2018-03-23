@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, {Component} from "react"
 import Images from "../Constants/Images";
 import Colors from "../Constants/Colors";
 import Container from "../Components/Container";
 import Button from "../Components/Button";
 import Text from "../Components/Text";
-import ConnectLogic from '../Logic/ConnectLogic'
-import { Actions } from "react-native-router-flux";
-import Alerts from "../Lib/Alerts"
+import PortalLogo from "../Components/PortalLogo";
+import Session from "../Lib/Session";
 
 import {
   Image,
   TextInput,
   View,
+  ScrollView,
   StyleSheet,
   ActivityIndicator
 } from "react-native";
@@ -21,30 +21,82 @@ class Login extends Component
     constructor(props) {
         super(props)
         this.state = {
-            domain: '',
-            busy: false
+            busy: false,
+            email: null,
+            password: null,
         }
-
         this.login = this.login.bind(this)
     }
 
     async login() {
-
-        if ( ! this.state.domain.trim()) {
-            Alerts.error('Domain is empty', 'Please enter your domain before pressing connect.')
+        if (this.state.busy) {
             return
         }
-        
         this.setState({busy: true})
-
         try {
-            await ConnectLogic.handle(this.state.domain)
-            Actions.reset("launch");
-        } catch (error) {
-            Alerts.error('Oops', error.toString())
-            // TODO: Show error
+            await Session.login(this.getCredentials())
+        } catch(error) {
             this.setState({busy: false})
+            return
         }
+        // Login successful! Go back to launch
+        Actions.reset("launch")
+    }
+
+    getCredentials() {
+        return {
+            email: this.state.email,
+            password: this.state.password,
+        }
+    }    
+    
+    render() {
+
+        const instanceName = Session.get(
+            "settings.name.en",
+            Session.get('settings.url')
+        )
+
+        return <Container center>
+            <PortalLogo />
+            <Text title>Login to { instanceName }</Text>
+
+            <View style={[styles.inputWrapper, {marginTop:16}]}>
+
+              <Text style={styles.label}>email</Text>
+              
+              <TextInput editable={!this.state.busy}
+              value={this.state.email}
+              onChangeText={(text) => this.setState({email: text})}
+              style={styles.input}
+              keyboardType="email-address"
+              placeholderTextColor="rgba(0,0,0,0.5)"
+              underlineColorAndroid="transparent"
+              placeholder="user@example.com"
+              autoCapitalize="none"
+              autoCorrect={false}
+              spellCheck={false} />
+              
+            </View>
+            <View style={[styles.inputWrapper, {marginBottom:32}]}>
+
+              <Text style={styles.label}>password</Text>
+              
+              <TextInput editable={!this.state.busy}
+              value={this.state.password}
+              onChangeText={(text) => this.setState({password: text})}
+              style={styles.input}
+              placeholderTextColor="rgba(0,0,0,0.5)"
+              underlineColorAndroid="transparent"
+              secureTextEntry={true}
+              placeholder="password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              spellCheck={false} />
+              
+            </View>
+            {this.renderButton()}
+          </Container>;
     }
     
     renderButton() {
@@ -53,31 +105,9 @@ class Login extends Component
         }
         return <Button login title="Connect" onPress={this.login} />
     }
-    
-    render() {
-        return <Container center>
-            <Image source={Images.ssas} />
-            <Text title>School Safety Self Assessment Portal</Text>
-
-            <View style={styles.inputWrapper}>
-              
-              <TextInput editable={!this.state.busy}
-              value={this.state.domain}
-              onChangeText={(text) => this.setState({domain: text})}
-              style={styles.input}
-              placeholderTextColor="rgba(255,255,255,0.5)"
-              underlineColorAndroid="transparent"
-              placeholder="enter domain"
-              autoCapitalize="none"
-              autoCorrect={false}
-              spellCheck={false} />
-              
-              <Text style={styles.domain}>.riskrapps.net</Text>
-            </View>
-            {this.renderButton()}
-          </Container>;
-    }
+        
 }
+
 
 const styles = StyleSheet.create({
   inputWrapper: {
@@ -85,22 +115,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.lightBlue,
     flexDirection: "row",
-    marginTop: 32,
-    marginBottom: 8,
+    marginBottom: 4,
     maxWidth: 340,
   },
   input: {
     flex: 1,
-    color: '#fff',
-    fontSize: 22,
-    textAlign: "center",
-    marginRight: 4,
-    backgroundColor: Colors.lightBlue,
+    color: '#333',
+    fontSize: 14,
+    textAlign: "left",
+    marginLeft: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
-  domain: {
-    fontSize: 22,
+  label: {
+    fontSize: 14,
     color: Colors.darkBlue,
     margin: 8,
+    width: 80,
+    padding: 8,
   }
 });
 
