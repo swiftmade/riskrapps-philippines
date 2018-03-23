@@ -3,6 +3,7 @@ import Container from "../Components/Container";
 import Colors from "../Constants/Colors";
 import Images from '../Constants/Images'
 import Text from "../Components/Text";
+import PortalLogo from "../Components/PortalLogo";
 import Button from "../Components/Button";
 import Session from "../Lib/Session";
 import ConnectLogic from "../Logic/ConnectLogic";
@@ -73,7 +74,7 @@ class Menu extends Component {
   
   renderMenu() {
     return <Container center>
-        <Image source={Images.logo()} defaultSource={Images.ssas} style={styles.logo} />
+        <PortalLogo />
         <Text title>{this.state.title}</Text>
         <View style={styles.buttons}>
           <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
@@ -114,11 +115,6 @@ class Menu extends Component {
 }
 
 const styles = StyleSheet.create({
-  logo: {
-    width: 90,
-    height: 90,
-    marginTop: 8,
-  },
   buttons: {
     marginTop: 16,
     width: "100%",

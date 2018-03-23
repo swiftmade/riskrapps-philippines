@@ -9,6 +9,7 @@ import {View} from 'react-native'
 import {Router, Stack, Scene} from 'react-native-router-flux'
 import {MessageBar, MessageBarManager} from 'react-native-message-bar'
 
+import Auth from "./src/Containers/Auth";
 import Launch from './src/Containers/Launch'
 import Login from './src/Containers/Login'
 import Menu from './src/Containers/Menu'
@@ -35,6 +36,7 @@ export default class App extends Component {
           <Stack key="root" hideNavBar={true}>
             <Scene key="launch" component={Launch} />
             <Scene key="login" component={Login} />
+            <Scene key="auth" component={Auth} />
             <Scene key="menu" component={Menu} />
             <Scene key="survey" component={Survey} />
             <Scene key="upload" component={Upload} />

@@ -14,7 +14,6 @@ class ConnectLogic {
         try {        
             await Promise.all([
                 Session.set(session),
-                this.downloadSurvey(),
                 this.downloadIcon(),
                 this.downloadSponsorLogos(),
             ])
@@ -35,13 +34,6 @@ class ConnectLogic {
         await RNFS.downloadFile({
             fromUrl: Session.get('settings.url') + encodeURI(icon),
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.png'
-        }).promise
-    }
-
-    async downloadSurvey() {
-        await RNFS.downloadFile({
-            fromUrl: Api.surveyJsonUrl(),
-            toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.json'
         }).promise
     }
 

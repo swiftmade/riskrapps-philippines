@@ -1,6 +1,8 @@
 import * as _ from 'lodash'
 import {AsyncStorage} from 'react-native'
 
+import Api from './Api'
+
 const sessionKey = '@SSAS:Session'
 
 class Session {
@@ -17,6 +19,24 @@ class Session {
         return this.session !== null
     }
 
+    /**
+     * Checks if the connected portal instance requires authentication
+     * If that's the case, checks if the user is currently authenticated.
+     */
+    needsAuthentication() {
+        if (!this.session) {
+            return false
+        }
+        return (this.session.settings.requires_authentication && !this.isAuthenticated())
+    }
+
+    isAuthenticated() {
+        if (!this.session) {
+            return false
+        }
+        return this.session.auth
+    }
+
     async load() {
         const value = await AsyncStorage.getItem(sessionKey)
         if (value !== null){
@@ -31,6 +51,10 @@ class Session {
         await AsyncStorage.setItem(sessionKey, JSON.stringify(session))
     }
 
+    async update(data) {
+        return await this.set({...this.session, ...data})
+    }
+
     async destroy() {
         this.session = null
         await AsyncStorage.removeItem(sessionKey)
@@ -38,6 +62,20 @@ class Session {
 
     get(key, def = null) {
         return _.get(this.session, key, def)
+    }
+
+    async login(credentials) {
+        const token = await Api.login(credentials)
+        await this.update({auth: {token}})
+    }
+
+    async refreshToken() {
+        const token = await Api.refreshToken()
+        await this.update({auth: {token}})
+    }
+
+    async logout() {
+        await this.update({auth: null})
     }
 }
 
