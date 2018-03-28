@@ -28,6 +28,7 @@ class Menu extends Component {
     this.uploadSubmissions = this.uploadSubmissions.bind(this)
     this.checkForUpdates = this.checkForUpdates.bind(this)
     this.exit = this.exit.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   componentWillMount() {
@@ -61,13 +62,20 @@ class Menu extends Component {
 
   async checkForUpdates() {
     this.setState({updating: true})
+    const auth = Session.session.auth
     try {
       await ConnectFlow.handle(Session.get('domain'))
+      await Session.update({auth})
       this.reset()
     } catch(error) {
       Alerts.error("Oops", error.toString());
       this.setState({ updating: false });
     }
+  }
+
+  async logout() {
+    await Session.logout()
+    this.reset()
   }
 
   async exit() {
@@ -91,7 +99,7 @@ class Menu extends Component {
             <CurrentUser />
           </View>
           <View>
-            <Button link title="Sign Out" icon="sign-in" style={styles.exitButton} onPress={this.exit} />
+            <Button link title="Sign Out" icon="sign-in" style={styles.exitButton} onPress={this.logout} />
           </View>
         </Header>
         <Content contentContainerStyle={{ alignItems:'center', padding:16}}>
@@ -105,7 +113,7 @@ class Menu extends Component {
           <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
           <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
         </View>
-      
+
         <View style={styles.footer}>
           <View style={styles.sponsors}>
           {this.renderSponsorLogos()}
