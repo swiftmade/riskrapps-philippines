@@ -14,7 +14,7 @@ export default class extends Component {
 
     render() {
 
-        const classes = ['button']
+        const classes = ["button"]
 
         if (this.props.login) {
             classes.push('login')
@@ -34,10 +34,8 @@ export default class extends Component {
         
         const textClasses = classes.map(cls => styles[cls + "_text"]);
         
-        return <View style={classes
-              .map(cls => styles[cls + "_container"])
-              .concat([this.props.style])}>
-            <TouchableOpacity onPress={this.props.onPress}>
+        return <View style={styles.button_container}>
+            <TouchableOpacity style={[styles.wrapper].concat(classes.map(cls => styles[cls + "_container"]))} onPress={this.props.onPress}>
               <View style={styles.contents}>
                 {this.renderIcon(textClasses)}
                 <Text style={textClasses}>
@@ -55,16 +53,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    wrapper: {
+        padding: 16
+    },
     icon: {
         marginTop:1,
         marginRight: 8,
         fontSize: 16,
     },
     button_container: {
-        padding: 16,
         width: "100%",
         maxWidth: 340,
-        backgroundColor: Colors.lightBlue
     },
     button_text: {
         fontSize: 14,
@@ -92,6 +91,7 @@ const styles = StyleSheet.create({
         color: Colors.textColor
     },
     link_container: {
+        padding:8,
         backgroundColor: '#fff'
     },
     link_text: {

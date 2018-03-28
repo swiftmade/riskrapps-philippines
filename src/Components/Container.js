@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {KeyboardAvoidingView, StyleSheet} from 'react-native'
 import Colors from '../Constants/Colors'
 
+import {Container as NContainer, Content} from 'native-base'
+
 class Container extends Component {
     render() {
 
@@ -12,9 +14,11 @@ class Container extends Component {
         }
 
         return (
-            <KeyboardAvoidingView behavior="padding" style={classes.concat([this.props.style])}>
-                {this.props.children}
-            </KeyboardAvoidingView>
+            <NContainer style={{backgroundColor:'white'}}>
+                <Content contentContainerStyle={classes}>
+                    {this.props.children}
+                </Content>
+            </NContainer>
         )
     }
 }

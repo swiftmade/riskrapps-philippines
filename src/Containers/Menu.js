@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Container from "../Components/Container";
 import Colors from "../Constants/Colors";
 import Images from '../Constants/Images'
 import Text from "../Components/Text";
@@ -9,6 +8,11 @@ import Session from "../Lib/Session";
 import ConnectFlow from "../Flows/ConnectFlow";
 import Alerts from "../Lib/Alerts";
 import { View, Image, ActivityIndicator, StyleSheet } from "react-native";
+import {NavigationActions} from 'react-navigation'
+
+import {Container, Content, Header, Footer} from 'native-base'
+
+import CurrentUser from '../Components/CurrentUser'
 
 class Menu extends Component {
 
@@ -48,18 +52,18 @@ class Menu extends Component {
   }
 
   newSubmission() {
-    Actions.push('survey', {title: 'New Submission'})
+    this.props.navigation.navigate('Survey', {title: 'New Submission'})
   }
 
   uploadSubmissions() {
-    Actions.push("upload", {title: 'Upload Submissions'})
+    this.props.navigation.navigate('Upload', {title: 'Upload Submissions'})
   }
 
   async checkForUpdates() {
     this.setState({updating: true})
     try {
       await ConnectFlow.handle(Session.get('domain'))
-      Actions.reset('launch')
+      this.reset()
     } catch(error) {
       Alerts.error("Oops", error.toString());
       this.setState({ updating: false });
@@ -68,11 +72,29 @@ class Menu extends Component {
 
   async exit() {
     await Session.destroy()
-    Actions.reset("launch")
+    this.reset()
+  }
+
+  reset() {
+    this.props.navigation.dispatch(
+        NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: "Launch",})],
+        })
+    )
   }
   
   renderMenu() {
-    return <Container center>
+    return <Container style={{backgroundColor:'white'}}>
+        <Header style={{backgroundColor:'white', alignItems:'center'}}>
+			<View style={{flex:1}}>
+				<CurrentUser />
+			</View>
+			<View style={{flex:1,marginTop:6}}>
+				<Button link title="Logout" icon="sign-out" style={styles.exitButton} onPress={this.exit} />
+			</View>
+        </Header>
+        <Content contentContainerStyle={{flex:1, alignItems:'center', padding:16}}>
         <PortalLogo />
         <Text title>{this.state.title}</Text>
         <View style={styles.buttons}>
@@ -85,11 +107,14 @@ class Menu extends Component {
           <View style={styles.sponsors}>
           {this.renderSponsorLogos()}
           </View>
-          <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+        </View>
+        </Content>
+        <Footer style={{backgroundColor: 'white', flexDirection:'column'}}>
           <Text style={styles.footerText}>
             Survey version: {this.state.version}
-          </Text>
-        </View>
+          </Text>        
+          <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+        </Footer>
       </Container>;
   }
 
@@ -119,18 +144,16 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 160,
   },
   sponsors: {
     flexDirection: "row",
     alignItems: "stretch",
-    flexWrap: "wrap"
   },
   sponsor: {
-    marginTop: 16,
+    marginTop: 8,
     marginRight: 4,
     marginLeft: 4,
-    marginBottom: 16
+    marginBottom: 8
   },
   exitButton: {
     marginBottom: 0,
@@ -138,7 +161,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    bottom: 8,
+    bottom: 0,
     flexDirection: "column"
   },
   footerText: {

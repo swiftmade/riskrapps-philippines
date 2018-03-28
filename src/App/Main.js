@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {View} from 'react-native'
 import {MessageBar, MessageBarManager} from 'react-native-message-bar'
 
 import Navigation from './Navigation'
@@ -18,6 +19,9 @@ export default class Main extends Component
     }
 
     render() {
-        return <Navigation />
+        return <View style={{flex:1}}>
+            <Navigation />
+            <MessageBar ref="alert" />
+        </View>
     }
 }

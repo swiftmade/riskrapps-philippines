@@ -26,6 +26,7 @@ export default async (navigation) => {
         try {
             await Session.refreshToken()
         } catch(error) {
+            console.error(error)
             // TODO: Only logout if it's a token issue.
             await Session.logout()
             // If after logging out, login is required, go to login page.

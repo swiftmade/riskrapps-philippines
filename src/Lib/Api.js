@@ -46,11 +46,12 @@ class Api {
     }
 
     refreshToken() {
-        return axios.post('refresh_token?token=' + Session.get('auth.token'))
+        return axios.get('me?token=' + Session.get('auth.token'))
             .then((response) => {
-                let token = response.headers.authorization
-                token = token.replace('Bearer ', '')
-                return token
+                let user = response.data
+                user.token = response.headers.authorization
+                user.token = user.token.replace("Bearer ", "")
+                return user
             })
     }
 

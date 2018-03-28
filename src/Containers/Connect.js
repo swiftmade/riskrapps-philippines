@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import {NavigationActions} from 'react-navigation';
+
+import Container from '../Components/Container'
 import Images from "../Constants/Images";
 import Colors from "../Constants/Colors";
-import Container from "../Components/Container";
 import Button from "../Components/Button";
 import Text from "../Components/Text";
 import ConnectFlow from '../Flows/ConnectFlow'
@@ -15,6 +17,7 @@ import {
   ActivityIndicator
 } from "react-native";
 
+
 class Connect extends Component
 {
     constructor(props) {
@@ -23,22 +26,26 @@ class Connect extends Component
             domain: '',
             busy: false
         }
-
-        this.login = this.login.bind(this)
+        this.connect = this.connect.bind(this)
     }
 
-    async login() {
+    async connect() {
 
         if ( ! this.state.domain.trim()) {
             Alerts.error('Domain is empty', 'Please enter your domain before pressing connect.')
             return
         }
-        
+
         this.setState({busy: true})
 
         try {
             await ConnectFlow.handle(this.state.domain)
-            Actions.reset("launch");
+            this.props.navigation.dispatch(
+                NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({routeName: "Launch",})],
+                })
+            )
         } catch (error) {
             Alerts.error('Oops', error.toString())
             // TODO: Show error
@@ -50,13 +57,13 @@ class Connect extends Component
         if (this.state.busy) {
             return <ActivityIndicator size="large" color={Colors.darkBlue} style={{marginTop:15}} />
         }
-        return <Button login title="Connect" onPress={this.login} />
+        return <Button login title="Connect" onPress={this.connect} />
     }
     
     render() {
         return <Container center>
             <Image source={Images.ssas} />
-            <Text title>School Safety Self Assessment Portal</Text>
+            <Text title>RiskRapps</Text>
 
             <View style={styles.inputWrapper}>
               
@@ -74,7 +81,7 @@ class Connect extends Component
               <Text style={styles.domain}>.riskrapps.net</Text>
             </View>
             {this.renderButton()}
-          </Container>;
+          </Container>
     }
 }
 

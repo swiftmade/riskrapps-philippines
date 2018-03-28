@@ -1,11 +1,13 @@
 import React, {Component} from "react"
-import Images from "../Constants/Images";
-import Colors from "../Constants/Colors";
-import Container from "../Components/Container";
-import Button from "../Components/Button";
-import Text from "../Components/Text";
-import PortalLogo from "../Components/PortalLogo";
-import Session from "../Lib/Session";
+import Images from '../Constants/Images'
+import Colors from '../Constants/Colors'
+import Container from '../Components/Container'
+import Button from '../Components/Button'
+import Text from '../Components/Text'
+import PortalLogo from '../Components/PortalLogo'
+import Session from '../Lib/Session'
+import Alerts from '../Lib/Alerts'
+import {NavigationActions} from 'react-navigation'
 
 import {
   Image,
@@ -36,11 +38,17 @@ class Login extends Component
         try {
             await Session.login(this.getCredentials())
         } catch(error) {
+            Alerts.error('Oops', error.toString())
             this.setState({busy: false})
             return
         }
         // Login successful! Go back to launch
-        Actions.reset("launch")
+        this.props.navigation.dispatch(
+            NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({routeName: "Launch",})],
+            })
+        )
     }
 
     getCredentials() {
