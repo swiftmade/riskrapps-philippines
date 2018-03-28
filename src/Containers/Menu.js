@@ -87,12 +87,12 @@ class Menu extends Component {
   renderMenu() {
     return <Container style={{backgroundColor:'white'}}>
         <Header style={{backgroundColor:'white', alignItems:'center'}}>
-			<View style={{flex:1}}>
-				<CurrentUser />
-			</View>
-			<View style={{marginTop:6}}>
-				<Button link title="Logout" icon="sign-out" style={styles.exitButton} onPress={this.exit} />
-			</View>
+          <View style={{flex:1}}>
+            <CurrentUser />
+          </View>
+          <View>
+            <Button link title="Sign Out" icon="sign-in" style={styles.exitButton} onPress={this.exit} />
+          </View>
         </Header>
         <Content contentContainerStyle={{ alignItems:'center', padding:16}}>
         <View style={{flexDirection:'row', alignItems:'center'}}>
