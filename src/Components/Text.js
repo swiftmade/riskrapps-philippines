@@ -16,6 +16,10 @@ export default class extends Component {
         if (this.props.title) {
             classes.push(styles.title)
         }
+        
+        if (this.props.wrapTitle) {
+            classes.push(styles.wrapTitle)
+        }        
 
         return (
             <Text style={classes.concat([this.props.style])}>{this.props.children}</Text>
@@ -30,10 +34,15 @@ const styles = StyleSheet.create({
       fontSize: 14,
   },
   bold: {
-      fontWeight: 'bold'
+    fontWeight: 'bold'
   },
   title: {
-      fontSize: 26,
-      textAlign: 'center',
-  }
+    fontSize: 26,
+    textAlign: 'center',
+  },
+  wrapTitle: {
+    fontSize: 20,
+    width:0,
+    flexGrow:1,
+  }  
 });

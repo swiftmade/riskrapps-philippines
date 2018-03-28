@@ -90,13 +90,16 @@ class Menu extends Component {
 			<View style={{flex:1}}>
 				<CurrentUser />
 			</View>
-			<View style={{flex:1,marginTop:6}}>
+			<View style={{marginTop:6}}>
 				<Button link title="Logout" icon="sign-out" style={styles.exitButton} onPress={this.exit} />
 			</View>
         </Header>
-        <Content contentContainerStyle={{flex:1, alignItems:'center', padding:16}}>
-        <PortalLogo />
-        <Text title>{this.state.title}</Text>
+        <Content contentContainerStyle={{ alignItems:'center', padding:16}}>
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+          <PortalLogo />
+          <Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
+        </View>
+        
         <View style={styles.buttons}>
           <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
           <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
@@ -127,7 +130,7 @@ class Menu extends Component {
 
   renderSponsorLogos() {
     return this.state.sponsors.map((item, index) => {
-        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 60}]} />
+        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 50}]} />
     })
   }
 
@@ -146,8 +149,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sponsors: {
+    marginTop:32,
     flexDirection: "row",
     alignItems: "stretch",
+    flexWrap: 'wrap',
   },
   sponsor: {
     marginTop: 8,
@@ -157,12 +162,8 @@ const styles = StyleSheet.create({
   },
   exitButton: {
     marginBottom: 0,
-    padding: 0
-  },
-  footer: {
-    position: "absolute",
-    bottom: 0,
-    flexDirection: "column"
+    padding: 0,
+    textAlign: 'right',
   },
   footerText: {
     flex: 1,
