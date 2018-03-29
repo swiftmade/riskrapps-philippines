@@ -1,6 +1,7 @@
 import {NavigationActions} from 'react-navigation'
 
 import Api from '../Lib/Api'
+import Alerts from '../Lib/Alerts'
 import Session from '../Lib/Session'
 import Connectivity from '../Lib/Connectivity'
 
@@ -26,7 +27,7 @@ export default async (navigation) => {
         try {
             await Session.refreshToken()
         } catch(error) {
-            console.error(error)
+            Alerts.error("Oops", error.toString())
             // TODO: Only logout if it's a token issue.
             await Session.logout()
             // If after logging out, login is required, go to login page.

@@ -38,7 +38,7 @@ class Api {
         }
         return axios.post('login', credentials)
             .then((response) => {
-                return response.data.token
+                return response.data
             })
             .catch(() => {
                 throw new Error('Invalid e-mail or password.')
@@ -46,12 +46,12 @@ class Api {
     }
 
     refreshToken() {
-        return axios.get('me?token=' + Session.get('auth.token'))
+        return axios.get('refresh_token?token=' + Session.get('auth.token'))
             .then((response) => {
-                let user = response.data
-                user.token = response.headers.authorization
-                user.token = user.token.replace("Bearer ", "")
-                return user
+                return response.data.token.replace('Bearer ', '')
+            })
+            .catch(() => {
+                throw new Error('Session expired!')
             })
     }
 

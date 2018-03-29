@@ -19,7 +19,7 @@ class Survey extends Component
     }    
 
     render() {
-        return <HtmlView source={this.getSource()} sensitive />
+        return <HtmlView navigation={this.props.navigation} source={this.getSource()} sensitive />
     }
 }
 

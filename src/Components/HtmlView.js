@@ -37,7 +37,7 @@ class HtmlView extends Component
     async confirmLeave() {
 
         if ( ! this.props.sensitive) {
-            return
+            return this.props.navigation.goBack(null)
         }
 
         const promise = new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ class HtmlView extends Component
           "Do you really want to leave?",
           "Any unsaved progress will be LOST. Do you want to exit now?",
           [
-            { text: "Yes, Leave", onPress: () => {resolve(true); Actions.pop()} },
+            { text: "Yes, Leave", onPress: () => {resolve(true); this.props.navigation.goBack(null)} },
             { text: "Cancel", onPress: () => {resolve(false)}, style: "cancel" }
           ],
           { cancelable: true }
@@ -62,7 +62,7 @@ class HtmlView extends Component
             domStorageEnabled={true}
             onShouldStartLoadWithRequest={this.intercept}
             allowUniversalAccessFromFileURLs={true} onError={() => {
-              Actions.pop();
+                this.props.navigation.goBack(null)
             }}  />;
     }
 }

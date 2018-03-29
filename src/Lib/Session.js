@@ -65,13 +65,18 @@ class Session {
     }
 
     async login(credentials) {
-        const token = await Api.login(credentials)
-        await this.update({auth: {token}})
+        const user = await Api.login(credentials)
+        await this.update({auth: user})
     }
 
     async refreshToken() {
-        const user = await Api.refreshToken()
-        await this.update({auth: user})
+        const token = await Api.refreshToken()
+        await this.update({
+            auth: {
+                ...this.session.auth,
+                token: token
+            }
+        })
     }
 
     async logout() {
