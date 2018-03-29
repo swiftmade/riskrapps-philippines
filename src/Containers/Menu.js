@@ -16,137 +16,154 @@ import CurrentUser from '../Components/CurrentUser'
 
 class Menu extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: '',
-      version: '',
-      updating: false,
-      sponsors: [],
-    }
-    this.newSubmission = this.newSubmission.bind(this)
-    this.uploadSubmissions = this.uploadSubmissions.bind(this)
-    this.checkForUpdates = this.checkForUpdates.bind(this)
-    this.exit = this.exit.bind(this)
-    this.logout = this.logout.bind(this)
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			title: '',
+			version: '',
+			updating: false,
+			sponsors: [],
+		}
 
-  componentWillMount() {
-      this.setState({
-        title: Session.get("settings.title.en", "School Safety Self-Assessment Portal"),
-        version: Session.get('survey.version'),
-      });
+		this.exit = this.exit.bind(this)
+		this.login = this.login.bind(this)
+		this.logout = this.logout.bind(this)
+		this.newSubmission = this.newSubmission.bind(this)
+		this.checkForUpdates = this.checkForUpdates.bind(this)
+		this.uploadSubmissions = this.uploadSubmissions.bind(this)
+	}
 
-      const sponsorLogos = Images.sponsors().map(sponsor => {
-        return new Promise((resolve) => {
-          Image.getSize(sponsor.uri, (width, height) => {
-            return resolve({sponsor, ratio: width / height})
-          })
-        })
-      })
+	componentWillMount() {
+		this.setState({
+			title: Session.get("settings.title.en", "School Safety Self-Assessment Portal"),
+			version: Session.get('survey.version'),
+		})
 
-      Promise.all(sponsorLogos).then((all) => {
-        this.setState({
-          sponsors: all
-        })
-      })
-  }
+		const sponsorLogos = Images.sponsors().map(sponsor => {
+			return new Promise((resolve) => {
+				Image.getSize(sponsor.uri, (width, height) => {
+					return resolve({sponsor, ratio: width / height})
+				})
+			})
+		})
 
-  newSubmission() {
-    this.props.navigation.navigate('Survey', {title: 'New Submission'})
-  }
+		Promise.all(sponsorLogos).then((all) => {
+			this.setState({
+				sponsors: all
+			})
+		})
+	}
 
-  uploadSubmissions() {
-    this.props.navigation.navigate('Upload', {title: 'Upload Submissions'})
-  }
+	newSubmission() {
+		this.props.navigation.navigate('Survey', {title: 'New Submission'})
+	}
 
-  async checkForUpdates() {
-    this.setState({updating: true})
-    const auth = Session.session.auth
-    try {
-      await ConnectFlow.handle(Session.get('domain'))
-      await Session.update({auth})
-      this.reset()
-    } catch(error) {
-      Alerts.error("Oops", error.toString());
-      this.setState({ updating: false });
-    }
-  }
+	uploadSubmissions() {
+		this.props.navigation.navigate('Upload', {title: 'Upload Submissions'})
+	}
 
-  async logout() {
-    await Session.logout()
-    this.reset()
-  }
 
-  async exit() {
-    await Session.destroy()
-    this.reset()
-  }
+	async checkForUpdates() {
+		this.setState({updating: true})
+		const auth = Session.session.auth
+		try {
+			await ConnectFlow.handle(Session.get('domain'))
+			await Session.update({auth})
+			this.reset()
+		} catch(error) {
+			Alerts.error("Oops", error.toString());
+			this.setState({ updating: false });
+		}
+	}
 
-  reset() {
-    this.props.navigation.dispatch(
-        NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName: "Launch",})],
-        })
-    )
-  }
-  
-  renderMenu() {
-    return <Container style={{backgroundColor:'white'}}>
-        <Header style={{backgroundColor:'white', alignItems:'center'}}>
-          <View style={{flex:1}}>
-            <CurrentUser />
-          </View>
-          <View>
-            <Button link title="Sign Out" icon="sign-in" style={styles.exitButton} onPress={this.logout} />
-          </View>
-        </Header>
-        <Content contentContainerStyle={{ alignItems:'center', padding:16}}>
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <PortalLogo />
-          <Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
-        </View>
-        
-        <View style={styles.buttons}>
-          <Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
-          <Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
-          <Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
-        </View>
+	async logout() {
+		await Session.logout()
+		this.reset()
+	}
 
-        <View style={styles.footer}>
-          <View style={styles.sponsors}>
-          {this.renderSponsorLogos()}
-          </View>
-        </View>
-        </Content>
-        <Footer style={{backgroundColor: 'white', flexDirection:'column'}}>
-          <Text style={styles.footerText}>
-            Survey version: {this.state.version}
-          </Text>        
-          <Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
-        </Footer>
-      </Container>;
-  }
+	async exit() {
+		await Session.destroy()
+		this.reset()
+	}
 
-  renderLoading() {
-    return <Container center>
-        <ActivityIndicator size="large" color={Colors.darkBlue} style={{ marginTop: 15 }} />
-        <Text>Updating...</Text>
-      </Container>;
-  }
+	reset(to = 'Launch', params = {}) {
+		this.props.navigation.dispatch(
+			NavigationActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({routeName: to, params})],
+			})
+		)
+	}
 
-  renderSponsorLogos() {
-    return this.state.sponsors.map((item, index) => {
-        return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 50}]} />
-    })
-  }
+	login() {
+		this.reset('Login', {optional: true})
+	}
 
-  render() {
-    return <View style={{flex:1}}>
-        {this.state.updating ? this.renderLoading() : this.renderMenu()}
-      </View>;
-  }
+	renderAuthButton() {
+		if (Session.isAuthenticated()) {
+			return  <Button link title="Sign Out" icon="sign-out" style={styles.exitButton} onPress={this.logout} />
+		}
+		return <Button link title="Sign In" icon="sign-in" style={styles.exitButton} onPress={this.login} />
+	}
+
+	renderMenu() {
+		return <Container style={{backgroundColor:'white'}}>
+			<Header style={{backgroundColor:'white', alignItems:'center'}}>
+			<View style={{flex:1}}>
+				<CurrentUser />
+			</View>
+			<View>
+
+				{this.renderAuthButton()}
+			</View>
+			</Header>
+			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>
+			<View style={{flexDirection:'row', alignItems:'center'}}>
+			<PortalLogo />
+			<Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
+			</View>
+			
+			<View style={styles.buttons}>
+			<Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
+			<Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
+			<Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
+			</View>
+
+			<View style={styles.footer}>
+			<View style={styles.sponsors}>
+			{this.renderSponsorLogos()}
+			</View>
+			</View>
+			</Content>
+			<Footer style={{backgroundColor: 'white', flexDirection:'column'}}>
+			<Text style={styles.footerText}>
+				Survey version: {this.state.version}
+			</Text>        
+			<Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+			</Footer>
+		</Container>
+  	}
+
+	renderLoading() {
+		return <Container>
+			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>
+				<ActivityIndicator size="large" color={Colors.darkBlue} style={{ marginTop: 15 }} />
+				<Text>Updating...</Text>
+			</Content>
+		</Container>
+	}
+
+	renderSponsorLogos() {
+		return this.state.sponsors.map((item, index) => {
+			return <Image key={index} source={item.sponsor} style={[styles.sponsor, {aspectRatio: item.ratio, height: 50}]} />
+		})
+	}
+
+	render() {
+		return <View style={{flex:1}}>
+			{this.state.updating ? this.renderLoading() : this.renderMenu()}
+		</View>
+	}
 }
 
 const styles = StyleSheet.create({

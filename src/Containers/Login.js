@@ -27,6 +27,7 @@ class Login extends Component
             email: null,
             password: null,
         }
+        this.reset = this.reset.bind(this)
         this.login = this.login.bind(this)
     }
 
@@ -43,12 +44,16 @@ class Login extends Component
             return
         }
         // Login successful! Go back to launch
+        this.reset()
+    }
+
+    reset() {
         this.props.navigation.dispatch(
             NavigationActions.reset({
                 index: 0,
                 actions: [NavigationActions.navigate({routeName: "Launch",})],
             })
-        )
+        )        
     }
 
     getCredentials() {
@@ -104,6 +109,7 @@ class Login extends Component
               
             </View>
             {this.renderButton()}
+            {this.renderCancelButton()}
           </Container>;
     }
     
@@ -113,7 +119,16 @@ class Login extends Component
         }
         return <Button login title="Connect" onPress={this.login} />
     }
-        
+
+    renderCancelButton() {
+        try {
+            if(this.props.navigation.state.params.optional) {
+                return <Button link title="Cancel" onPress={this.reset} />
+            }
+        } catch(e) {
+            return null
+        }
+    }
 }
 
 
