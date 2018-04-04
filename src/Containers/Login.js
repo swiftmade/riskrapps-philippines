@@ -133,7 +133,7 @@ class Login extends Component
             }
         } catch(e) {}
         
-        return <Button link title="Cancel" onPress={() => {
+        return <Button link title="Don't Login" onPress={() => {
             optional ? this.reset() : this.restart()
         }} />
     }

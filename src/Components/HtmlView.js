@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {Alert} from 'react-native'
 import RNFS from 'react-native-fs'
 import Files from '../Lib/Files'
-import Container from '../Components/Container'
-import {BackHandler} from 'react-native'
+import {Platform, View, BackHandler} from 'react-native'
 import CustomWebview from './CustomWebview'
+import {Container, Content} from 'native-base'
 
 class HtmlView extends Component
 {
@@ -57,13 +57,23 @@ class HtmlView extends Component
     }
     
     render() {
-        return <CustomWebview source={this.props.source}
-            bounces={false}
-            domStorageEnabled={true}
-            onShouldStartLoadWithRequest={this.intercept}
-            allowUniversalAccessFromFileURLs={true} onError={() => {
-                this.props.navigation.goBack(null)
-            }}  />;
+        return <View style={{flex:1}}>
+                {this.renderiOSStatusBarMargin()}
+                <CustomWebview source={this.props.source}
+                bounces={false}
+                domStorageEnabled={true}
+                onShouldStartLoadWithRequest={this.intercept}
+                allowUniversalAccessFromFileURLs={true} onError={() => {
+                    this.props.navigation.goBack(null)
+                }}  />
+        </View>
+    }
+
+    renderiOSStatusBarMargin() {
+        if (Platform.OS !== 'ios') {
+            return null
+        }
+        return <View style={{height:20}} />
     }
 }
 
