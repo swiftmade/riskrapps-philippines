@@ -117,8 +117,8 @@ class Menu extends Component {
 				{this.renderAuthButton()}
 			</View>
 			</Header>
-			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>
-			<View style={{flexDirection:'row', alignItems:'center'}}>
+			<Content contentContainerStyle={{ alignItems:'center', justifyContent:'center', padding:16}}>
+			<View style={{flexDirection:'row', alignItems:'center',}}>
 			<PortalLogo />
 			<Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
 			</View>
@@ -135,11 +135,11 @@ class Menu extends Component {
 			</View>
 			</View>
 			</Content>
-			<Footer style={{backgroundColor: 'white', flexDirection:'column'}}>
-			<Text style={styles.footerText}>
-				Survey version: {this.state.version}
-			</Text>        
-			<Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
+			<Footer style={{backgroundColor: 'white', flexDirection:'column', alignItems:'center'}}>
+				<Text style={styles.footerText}>
+					Survey version: {this.state.version}
+				</Text>
+				<Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
 			</Footer>
 		</Container>
   	}

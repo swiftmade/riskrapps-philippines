@@ -44,5 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     width:0,
     flexGrow:1,
+    flexBasis: 'auto',
+    maxWidth: 235,
   }  
 });

@@ -53,7 +53,12 @@ class Login extends Component
                 index: 0,
                 actions: [NavigationActions.navigate({routeName: "Launch",})],
             })
-        )        
+        )
+    }
+
+    async restart() {
+        await Session.destroy()
+        this.reset()
     }
 
     getCredentials() {
@@ -121,13 +126,16 @@ class Login extends Component
     }
 
     renderCancelButton() {
+        let optional = false
         try {
             if(this.props.navigation.state.params.optional) {
-                return <Button link title="Cancel" onPress={this.reset} />
+                optional = true
             }
-        } catch(e) {
-            return null
-        }
+        } catch(e) {}
+        
+        return <Button link title="Cancel" onPress={() => {
+            optional ? this.reset() : this.restart()
+        }} />
     }
 }
 
