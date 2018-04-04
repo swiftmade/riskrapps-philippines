@@ -27,7 +27,7 @@ class Session {
         if (!this.session) {
             return false
         }
-        return (this.session.settings.requires_authentication && !this.isAuthenticated())
+        return this.get("settings.requires_authentication") && !this.isAuthenticated();
     }
 
     isAuthenticated() {
@@ -35,6 +35,10 @@ class Session {
             return false
         }
         return this.session.auth
+    }
+
+    isMissingSurvey() {
+        return !this.get('survey_downloaded', false)
     }
 
     async load() {

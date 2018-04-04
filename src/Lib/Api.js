@@ -55,12 +55,25 @@ class Api {
             })
     }
 
+    requestHeaders() {
+        const headers = {}
+        if(Session.get('auth.token')) {
+            headers['Authorization'] = 'Bearer ' + Session.get('auth.token')
+        }
+        return headers
+    }
+
     async downloadSurvey() {
         // TODO: Add token if found
-        await RNFS.downloadFile({
+        const result = await RNFS.downloadFile({
             fromUrl: this.surveyJsonUrl(),
+            headers: this.requestHeaders(),
             toFile: RNFS.DocumentDirectoryPath + '/' + Session.get('domain') + '.json'
         }).promise
+
+        if (result.statusCode !== 200) {
+            throw new Error('Survey could not be downloaded. Code: ' + result.statusCode)
+        }
     }
 }
 

@@ -18,12 +18,34 @@ export default async (navigation) => {
         navigation.dispatch(resetAction)            
     }
 
+    const downloadSurveyIfNeeded = async () => {
+        if (Session.isMissingSurvey()) {
+            await Api.downloadSurvey()
+            await Session.update({
+                survey_downloaded: true
+            })
+        }
+    }
+
+    const continueToApplication = async () => {
+        
+        try {
+            await downloadSurveyIfNeeded()
+        } catch(error) {
+            Alerts.error('Oops!', error.toString())
+            Session.destroy()
+            return resetTo("Launch");
+        }
+
+        return resetTo('Menu')
+    }
+
     const refreshTokenAndStart = async () => {
         
         if ( ! await Connectivity.check()) {
-            return resetTo('Menu') // Do nothing, because there's no connection
+            return await continueToApplication() // Do nothing, because there's no connection
         }
-        
+
         try {
             await Session.refreshToken()
         } catch(error) {
@@ -36,7 +58,7 @@ export default async (navigation) => {
             }
         }
 
-        return resetTo('Menu')
+        return await continueToApplication()
     }
 
     await Session.restoreSession()
@@ -50,18 +72,18 @@ export default async (navigation) => {
     
     // Sets the active domain, and if exists, token
     Api.configureFromSession()
-    
+
     // If the session indicates that authentication is necessary
     // And the user is not currently authenticated, authenticate first.
     if (Session.needsAuthentication()) {
         return resetTo("Login")
     }
-    
+
     if (Session.isAuthenticated()) {
         // Check internet connectivity...
         return await refreshTokenAndStart()
     }
     
     // Otherwise, just go to the menu.
-    resetTo('Menu')
+    return await continueToApplication()
 }

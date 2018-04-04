@@ -62,7 +62,6 @@ class Menu extends Component {
 		this.props.navigation.navigate('Upload', {title: 'Upload Submissions'})
 	}
 
-
 	async checkForUpdates() {
 		this.setState({updating: true})
 		const auth = Session.session.auth
@@ -117,23 +116,24 @@ class Menu extends Component {
 				{this.renderAuthButton()}
 			</View>
 			</Header>
-			<Content contentContainerStyle={{ alignItems:'center', justifyContent:'center', padding:16}}>
-			<View style={{flexDirection:'row', alignItems:'center',}}>
-			<PortalLogo />
-			<Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
-			</View>
-			
-			<View style={styles.buttons}>
-			<Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
-			<Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
-			<Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
-			</View>
+			<Content contentContainerStyle={{ alignItems:'center',  padding:16}}>
 
-			<View style={styles.footer}>
-			<View style={styles.sponsors}>
-			{this.renderSponsorLogos()}
-			</View>
-			</View>
+				<View style={{flexDirection:'row', alignItems:'center',}}>
+				<PortalLogo />
+				<Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
+				</View>
+				
+				<View style={styles.buttons}>
+				<Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
+				<Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
+				<Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
+				</View>
+
+				<View style={styles.footer}>
+				<View style={styles.sponsors}>
+					{this.renderSponsorLogos()}
+				</View>
+				</View>
 			</Content>
 			<Footer style={{backgroundColor: 'white', flexDirection:'column', alignItems:'center'}}>
 				<Text style={styles.footerText}>
@@ -174,9 +174,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sponsors: {
-    marginTop:32,
+	marginTop:32,
+	maxWidth:340,
     flexDirection: "row",
-    alignItems: "stretch",
+	alignItems: "stretch",
+	justifyContent:'center',
     flexWrap: 'wrap',
   },
   sponsor: {
