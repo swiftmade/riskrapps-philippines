@@ -7,12 +7,14 @@ import Button from "../Components/Button";
 import Session from "../Lib/Session";
 import ConnectFlow from "../Flows/ConnectFlow";
 import Alerts from "../Lib/Alerts";
-import { View, Image, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Image, ActivityIndicator, StyleSheet, ImageBackground } from "react-native";
 import {NavigationActions} from 'react-navigation'
 
 import {Container, Content, Header, Footer} from 'native-base'
 
 import CurrentUser from '../Components/CurrentUser'
+
+import Themes from '../Constants/Themes'
 
 class Menu extends Component {
 
@@ -105,18 +107,28 @@ class Menu extends Component {
 		return <Button link title="Sign In" icon="sign-in" style={styles.exitButton} onPress={this.login} />
 	}
 
+	getTheme() {
+		if (Session.get('domain') === 'philippines') {
+			return Themes.philippines
+		}
+		return Themes.default
+	}
+
 	renderMenu() {
+
+		const {background, buttonStyles} = this.getTheme()
+		
 		return <Container style={{backgroundColor:'white'}}>
 			<Header style={{backgroundColor:'white', alignItems:'center'}}>
 			<View style={{flex:1}}>
 				<CurrentUser />
 			</View>
 			<View>
-
 				{this.renderAuthButton()}
 			</View>
 			</Header>
-			<Content contentContainerStyle={{ alignItems:'center',  padding:16}}>
+			<ImageBackground source={background} style={{flex:1}} opacity={0.4}>
+			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>
 
 				<View style={{flexDirection:'row', alignItems:'center',}}>
 				<PortalLogo />
@@ -124,9 +136,9 @@ class Menu extends Component {
 				</View>
 				
 				<View style={styles.buttons}>
-				<Button menu menu_primary title="New Submission" icon="plus" onPress={this.newSubmission} />
-				<Button menu title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
-				<Button menu menu_grey title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
+				<Button menu theme={buttonStyles.primary} title="New Submission" icon="plus" onPress={this.newSubmission} />
+				<Button menu theme={buttonStyles.secondary} title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
+				<Button menu theme={buttonStyles.other} title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
 				</View>
 
 				<View style={styles.footer}>
@@ -135,6 +147,7 @@ class Menu extends Component {
 				</View>
 				</View>
 			</Content>
+			</ImageBackground>
 			<Footer style={{backgroundColor: 'white', flexDirection:'column', alignItems:'center'}}>
 				<Text style={styles.footerText}>
 					Survey version: {this.state.version}

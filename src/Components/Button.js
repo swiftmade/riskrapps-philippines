@@ -19,23 +19,25 @@ export default class extends Component {
         if (this.props.login) {
             classes.push('login')
         }
-        if (this.props.menu) {
-          classes.push('menu')
-        }        
-        if (this.props.menu_primary) {
-            classes.push("menu_primary");
-        }
-        if (this.props.menu_grey) {
-          classes.push("menu_grey");
-        }
         if (this.props.link) {
           classes.push("link");
-        }                
+        }
         
-        const textClasses = classes.map(cls => styles[cls + "_text"]);
-        
+        const textClasses = classes.map(cls => styles[cls + "_text"])
+        const containerClasses = [styles.wrapper].concat(classes.map(cls => styles[cls + "_container"]))
+
+        if (this.props.theme) {
+            textClasses.push({
+                color: this.props.theme.text
+            })
+            containerClasses.push({
+                marginBottom: 8,
+                backgroundColor: this.props.theme.background
+            })
+        }
+
         return <View style={styles.button_container}>
-            <TouchableOpacity style={[styles.wrapper].concat(classes.map(cls => styles[cls + "_container"]))} onPress={this.props.onPress}>
+            <TouchableOpacity style={containerClasses} onPress={this.props.onPress}>
               <View style={styles.contents}>
                 {this.renderIcon(textClasses)}
                 <Text style={textClasses}>
@@ -75,21 +77,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.darkGreen
     },
     login_text: {},
-    menu_container: {
-        marginBottom: 8,
-        backgroundColor: Colors.lightBlue
-    },
-    menu_text: {},
-    menu_primary_container: {
-        backgroundColor: Colors.darkGreen
-    },
-    menu_primary_text: {},
-    menu_grey_container: {
-        backgroundColor: '#e9e9e9'
-    },
-    menu_grey_text: {
-        color: Colors.textColor
-    },
     link_container: {
         padding:8,
         backgroundColor: '#fff'
