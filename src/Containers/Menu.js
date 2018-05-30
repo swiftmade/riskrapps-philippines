@@ -14,8 +14,6 @@ import {Container, Content, Header, Footer} from 'native-base'
 
 import CurrentUser from '../Components/CurrentUser'
 
-import Themes from '../Constants/Themes'
-
 class Menu extends Component {
 
 	constructor(props) {
@@ -107,16 +105,9 @@ class Menu extends Component {
 		return <Button link title="Sign In" icon="sign-in" style={styles.exitButton} onPress={this.login} />
 	}
 
-	getTheme() {
-		if (Session.get('domain') === 'philippines') {
-			return Themes.philippines
-		}
-		return Themes.default
-	}
-
 	renderMenu() {
 
-		const {background, buttonStyles} = this.getTheme()
+		const {background, buttonStyles} = Session.getTheme()
 		
 		return <Container style={{backgroundColor:'white'}}>
 			<Header style={{backgroundColor:'white', alignItems:'center'}}>

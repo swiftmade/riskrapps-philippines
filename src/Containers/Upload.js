@@ -4,19 +4,21 @@ import Session from "../Lib/Session";
 import Query from "../Lib/Query";
 import HtmlView from '../Components/HtmlView'
 
+
 class Upload extends Component
 {   
     getSource() {
         const baseUri = Files.wwwFolder()
         const uri = baseUri + "/submissions.html?" + Query(this.queryParams())        
         return { uri, baseUri }
-    }    
+    }
 
     queryParams() {
         const params = {
             db: Session.get("domain"),
             server: "openrosa/submissions",
             base: Session.get("settings.url"),
+            bg: Session.bgPath(),
         }
         let token = Session.get('auth.token')
         // Only set the token if the user is authorized

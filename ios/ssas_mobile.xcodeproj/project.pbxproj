@@ -25,6 +25,7 @@
 		128B08B2203EFE7C008C803E /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 128B08A7203EFE7C008C803E /* EvilIcons.ttf */; };
 		128B08B3203EFE7C008C803E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 128B08A8203EFE7C008C803E /* SimpleLineIcons.ttf */; };
 		128B08B4203EFE7C008C803E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 128B08A9203EFE7C008C803E /* MaterialIcons.ttf */; };
+		12919CEA20BEE8D800ED70EF /* philippines.png in Resources */ = {isa = PBXBuildFile; fileRef = 12919CC120BEE8D700ED70EF /* philippines.png */; };
 		12CA4703207645AA00727040 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 12CA4702207645AA00727040 /* splash.png */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -384,6 +385,7 @@
 		128B08A7203EFE7C008C803E /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		128B08A8203EFE7C008C803E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		128B08A9203EFE7C008C803E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		12919CC120BEE8D700ED70EF /* philippines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = philippines.png; path = ../src/Assets/philippines.png; sourceTree = "<group>"; };
 		12CA4702207645AA00727040 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				12CA4702207645AA00727040 /* splash.png */,
+				12919CC120BEE8D700ED70EF /* philippines.png */,
 				13B07FAE1A68108700A75B9A /* ssas_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ssas_mobileTests */,
@@ -1239,6 +1242,7 @@
 				A2769B1EEDBC4194B521B12F /* Foundation.ttf in Resources */,
 				128B08B0203EFE7C008C803E /* FontAwesome.ttf in Resources */,
 				AD0F1015C00A4CB5A10AA6BA /* Ionicons.ttf in Resources */,
+				12919CEA20BEE8D800ED70EF /* philippines.png in Resources */,
 				128B08B1203EFE7C008C803E /* Zocial.ttf in Resources */,
 				BD41CF6C234F4DABA9D5A899 /* MaterialCommunityIcons.ttf in Resources */,
 				5743DBC4D43F43E3BF56606A /* MaterialIcons.ttf in Resources */,

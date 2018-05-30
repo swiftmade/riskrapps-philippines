@@ -1,7 +1,9 @@
 import * as _ from 'lodash'
-import {AsyncStorage} from 'react-native'
+import RNFS from 'react-native-fs'
+import { Platform, AsyncStorage } from 'react-native'
 
 import Api from './Api'
+import Themes from '../Constants/Themes'
 
 const sessionKey = '@SSAS:Session'
 
@@ -85,6 +87,22 @@ class Session {
 
     async logout() {
         await this.update({auth: null})
+    }
+
+    getTheme() {
+		if (this.get('domain') === 'philippines') {
+		    return Themes.philippines
+		}
+		return Themes.default
+    }
+
+    bgPath() {
+        const filename = this.get('domain') + '.png'
+        if (Platform.OS === 'android') {
+            return 'file:///android_asset/' + filename
+        }
+        // For iOS
+        return 'file://' + RNFS.MainBundlePath + '/' + filename
     }
 }
 

@@ -12,6 +12,7 @@ class Survey extends Component
             lang: "en",
             json: Files.surveyJson(),
             db: Session.get("domain"),
+            bg: Session.bgPath(),
             //novalidate: true,
         });
 
