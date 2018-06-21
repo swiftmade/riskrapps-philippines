@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.ssas_mobile",
+    package = "com.riskrapps_philippines",
 )
 
 android_resource(
     name = "res",
-    package = "com.ssas_mobile",
+    package = "com.riskrapps_philippines",
     res = "src/main/res",
 )
 
