@@ -3,6 +3,9 @@ package com.riskrapps_philippines;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblongmana.webviewfileuploadandroid.AndroidWebViewPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.rnfs.RNFSPackage;
 import com.rnfs.RNFSPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AndroidWebViewPackage(),
+            new VectorIconsPackage(),
+            new RNFSPackage(),
           new RNFSPackage(),
           new VectorIconsPackage(),
           new CustomWebViewPackage()
