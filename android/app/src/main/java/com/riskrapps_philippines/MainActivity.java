@@ -1,4 +1,4 @@
-package com.ssas_mobile;
+package com.riskrapps_philippines;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "ssas_mobile";
+        return "riskrapps_philippines";
     }
 }

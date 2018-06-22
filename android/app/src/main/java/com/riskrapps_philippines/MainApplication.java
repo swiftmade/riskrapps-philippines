@@ -6,13 +6,10 @@ import com.facebook.react.ReactApplication;
 import com.oblongmana.webviewfileuploadandroid.AndroidWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnfs.RNFSPackage;
-import com.rnfs.RNFSPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import android.webkit.WebView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new AndroidWebViewPackage(),
             new VectorIconsPackage(),
-            new RNFSPackage(),
-          new RNFSPackage(),
-          new VectorIconsPackage(),
-          new CustomWebViewPackage()
+            new RNFSPackage()
       );
     }
 
