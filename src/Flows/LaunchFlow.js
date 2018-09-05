@@ -8,18 +8,25 @@ import ConnectFlow from './ConnectFlow'
 import Connectivity from '../Lib/Connectivity'
 import Hazards from '../Lib/Hazards'
 
+const _resetTo = (navigation, screenName) => {
+    const resetAction = NavigationActions.reset({
+        index: 0,
+        key: null,
+        actions: [
+            NavigationActions.navigate({ routeName: screenName }),
+        ]
+    })
+    navigation.dispatch(resetAction)
+}
+
+export const openHazardSurvey = async (navigation, hazard) => {
+    await _resetTo(navigation, 'Menu')
+    return navigation.navigate('Survey', {hazard})
+}
+
 export default async (navigation) => {
     // Resets the navigation stack
-    const resetTo = (screenName) => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            key: null,
-            actions: [
-                NavigationActions.navigate({ routeName: screenName }),
-            ]
-        })
-        navigation.dispatch(resetAction)            
-    }
+    const resetTo = (screenName) => _resetTo(navigation, screenName)
 
     const downloadSurveyIfNeeded = async () => {
         if (Session.isMissingSurvey()) {
@@ -40,14 +47,14 @@ export default async (navigation) => {
             return resetTo("Launch");
         }
 
-        await resetTo('Menu')
-
         const url = await Linking.getInitialURL()
 
         if (url) {
             const hazard = await Hazards.parseAndAddFromUrl(url)
-            //navigation.navigate('Survey', hazard)
+            return openHazardSurvey(navigation, hazard)
         }
+
+        return resetTo('Menu')
     }
 
     const refreshTokenAndStart = async () => {

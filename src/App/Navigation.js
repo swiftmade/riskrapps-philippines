@@ -8,16 +8,20 @@ import Upload from '../Containers/Upload'
 import Connect from '../Containers/Connect'
 
 export default StackNavigator({
-    Launch: {screen: Launch},
-    Login: {screen: Login},
-    Menu: {screen: Menu},
-    Connect: {screen: Connect},
-    Survey: {screen: Survey},
-    Launch: {screen: Launch},
-    Upload: {screen: Upload},
+    Launch: {screen: Launch, navigationOptions: { header: null}},
+    Login: {screen: Login, navigationOptions: { header: null}},
+    Menu: {screen: Menu, navigationOptions: { header: null}},
+    Connect: {screen: Connect, navigationOptions: { header: null}},
+    Survey: {screen: Survey, navigationOptions: ({ navigation }) => {
+        const {state} = navigation;
+        return {
+            title: `${state.params.title || 'Loading...'}`,
+        };
+    }},
+    Launch: {screen: Launch, navigationOptions: { header: null}},
+    Upload: {screen: Upload, navigationOptions: { header: null}},
 }, {
     initialRouteName: 'Launch',
-    headerMode: 'none',
     navigationOptions: {
         gesturesEnabled: false,
     },

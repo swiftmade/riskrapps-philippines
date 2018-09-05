@@ -49,10 +49,7 @@ class HtmlView extends Component
     }
 
     renderiOSStatusBarMargin() {
-        if (Platform.OS !== 'ios') {
-            return null
-        }
-        return <View style={{height:20}} />
+        return null
     }
 }
 

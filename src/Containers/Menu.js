@@ -55,7 +55,7 @@ class Menu extends Component {
 		})
 
 		Hazards.allHazards().then(hazards => this.setState({
-			hazards: hazards.slice(-3)
+			hazards: hazards.reverse().slice(0, 3)
 		}))
 	}
 

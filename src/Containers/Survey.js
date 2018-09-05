@@ -6,11 +6,29 @@ import HtmlView from "../Components/HtmlView"
 
 class Survey extends Component
 {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: null,
+            hazard: null
+        }
+    }
+
+
+    componentDidMount() {
+        const {state, setParams} = this.props.navigation
+        const {hazard} = state.params
+
+        const title = hazard.type + ' ' + hazard.name
+        setParams({title})
+
+        this.setState({
+            title,
+            hazard,
+        })
+    }
+    
     getSource() {
-
-        console.log(this.props)
-
-        const {hazard} = this.props.navigation.state.params
 
         const baseUri = Files.wwwFolder()
         
@@ -20,9 +38,9 @@ class Survey extends Component
             survey: Files.surveyJson(),
             db: Session.get("domain"),
             bg: Session.bgPath(),
-            session: hazard.type + ' ' + hazard.name,
+            session: this.state.title,
             session_extra: JSON.stringify({
-                hazardId: hazard.id
+                hazardId: this.state.hazard.id
             })
             //novalidate: true,
         });
@@ -31,6 +49,9 @@ class Survey extends Component
     }    
 
     render() {
+        if ( ! this.state.hazard) {
+            return null
+        }
         return <HtmlView navigation={this.props.navigation} source={this.getSource()} sensitive />
     }
 }

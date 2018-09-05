@@ -4,6 +4,7 @@ import {MessageBar, MessageBarManager} from 'react-native-message-bar'
 
 import Hazards from '../Lib/Hazards'
 import Navigation from './Navigation'
+import {openHazardSurvey} from '../Flows/LaunchFlow'
 
 export default class Main extends Component
 {
@@ -34,8 +35,8 @@ export default class Main extends Component
         if (!url) {
             return
         }
-        await Hazards.parseAndAddFromUrl(url)
-        this.navigator.navigate('Survey', {title: 'New Submission'})
+        const hazard = await Hazards.parseAndAddFromUrl(url)
+        openHazardSurvey(this.navigator, hazard)
     }
 
     render() {
