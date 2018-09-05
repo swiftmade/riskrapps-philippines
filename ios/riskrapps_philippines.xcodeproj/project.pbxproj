@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* riskrapps_philippinesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* riskrapps_philippinesTests.m */; };
+		12D00EC32140110400A92AAE /* www in Resources */ = {isa = PBXBuildFile; fileRef = 12D00EC22140110300A92AAE /* www */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -363,6 +364,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* riskrapps_philippinesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = riskrapps_philippinesTests.m; sourceTree = "<group>"; };
 		03BB0B4E33CB454897696C4F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		12D00EC22140110300A92AAE /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../enketo/www; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* riskrapps_philippines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = riskrapps_philippines.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -563,6 +565,7 @@
 		13B07FAE1A68108700A75B9A /* riskrapps_philippines */ = {
 			isa = PBXGroup;
 			children = (
+				12D00EC22140110300A92AAE /* www */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -797,6 +800,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 3BWRU7N5PW;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1195,6 +1201,7 @@
 				97285F1B5BD7468B8C382EA0 /* Roboto_medium.ttf in Resources */,
 				CDDBA6A6FB844786BEE0B629 /* Roboto.ttf in Resources */,
 				70629304CF8B497B907E16D2 /* rubicon-icon-font.ttf in Resources */,
+				12D00EC32140110400A92AAE /* www in Resources */,
 				1F79B688F6A74FBE85DFC67E /* SimpleLineIcons.ttf in Resources */,
 				B8044FEE6B18468DB7E3331E /* Zocial.ttf in Resources */,
 				582AFC03F77F417D9FD71267 /* Feather.ttf in Resources */,
@@ -1376,6 +1383,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 3BWRU7N5PW;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1388,6 +1396,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riskrapps-philippines";
 				PRODUCT_NAME = riskrapps_philippines;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1398,6 +1407,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3BWRU7N5PW;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1410,6 +1420,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riskrapps-philippines";
 				PRODUCT_NAME = riskrapps_philippines;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
