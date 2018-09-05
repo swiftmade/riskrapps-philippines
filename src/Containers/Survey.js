@@ -7,12 +7,23 @@ import HtmlView from "../Components/HtmlView"
 class Survey extends Component
 {
     getSource() {
+
+        console.log(this.props)
+
+        const {hazard} = this.props.navigation.state.params
+
         const baseUri = Files.wwwFolder()
+        
         const uri = baseUri + "/survey.html?" + Query({
             lang: "en",
-            json: Files.surveyJson(),
+            mode: "offline",
+            survey: Files.surveyJson(),
             db: Session.get("domain"),
             bg: Session.bgPath(),
+            session: hazard.type + ' ' + hazard.name,
+            session_extra: JSON.stringify({
+                hazardId: hazard.id
+            })
             //novalidate: true,
         });
 

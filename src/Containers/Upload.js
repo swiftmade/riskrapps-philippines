@@ -16,7 +16,7 @@ class Upload extends Component
     queryParams() {
         const params = {
             db: Session.get("domain"),
-            server: "openrosa/submissions",
+            submit: "openrosa/submissions",
             base: Session.get("settings.url"),
             bg: Session.bgPath(),
         }

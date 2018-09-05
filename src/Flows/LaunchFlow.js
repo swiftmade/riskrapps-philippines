@@ -1,3 +1,4 @@
+import {Linking} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 
 import Api from '../Lib/Api'
@@ -5,6 +6,7 @@ import Alerts from '../Lib/Alerts'
 import Session from '../Lib/Session'
 import ConnectFlow from './ConnectFlow'
 import Connectivity from '../Lib/Connectivity'
+import Hazards from '../Lib/Hazards'
 
 export default async (navigation) => {
     // Resets the navigation stack
@@ -38,7 +40,14 @@ export default async (navigation) => {
             return resetTo("Launch");
         }
 
-        return resetTo('Menu')
+        await resetTo('Menu')
+
+        const url = await Linking.getInitialURL()
+
+        if (url) {
+            const hazard = await Hazards.parseAndAddFromUrl(url)
+            //navigation.navigate('Survey', hazard)
+        }
     }
 
     const refreshTokenAndStart = async () => {

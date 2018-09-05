@@ -5,6 +5,7 @@ import Text from "../Components/Text";
 import PortalLogo from "../Components/PortalLogo";
 import Button from "../Components/Button";
 import Session from "../Lib/Session";
+import Hazards from "../Lib/Hazards";
 import ConnectFlow from "../Flows/ConnectFlow";
 import Alerts from "../Lib/Alerts";
 import { View, Image, ActivityIndicator, StyleSheet, ImageBackground } from "react-native";
@@ -23,12 +24,12 @@ class Menu extends Component {
 			version: '',
 			updating: false,
 			sponsors: [],
+			hazards: [],
 		}
 
 		this.exit = this.exit.bind(this)
 		this.login = this.login.bind(this)
 		this.logout = this.logout.bind(this)
-		this.newSubmission = this.newSubmission.bind(this)
 		this.checkForUpdates = this.checkForUpdates.bind(this)
 		this.uploadSubmissions = this.uploadSubmissions.bind(this)
 	}
@@ -52,10 +53,14 @@ class Menu extends Component {
 				sponsors: all
 			})
 		})
+
+		Hazards.allHazards().then(hazards => this.setState({
+			hazards: hazards.slice(-3)
+		}))
 	}
 
-	newSubmission() {
-		this.props.navigation.navigate('Survey', {title: 'New Submission'})
+	gotoSurvey(hazard) {
+		this.props.navigation.navigate('Survey', {hazard})
 	}
 
 	uploadSubmissions() {
@@ -127,9 +132,12 @@ class Menu extends Component {
 				</View>
 				
 				<View style={styles.buttons}>
-				<Button menu theme={buttonStyles.primary} title="New Submission" icon="plus" onPress={this.newSubmission} />
+				{this.renderHazardButtons()}
+
 				<Button menu theme={buttonStyles.secondary} title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
+				{/*
 				<Button menu theme={buttonStyles.other} title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
+				*/}
 				</View>
 
 				<View style={styles.footer}>
@@ -147,6 +155,22 @@ class Menu extends Component {
 		</Container>
   	}
 
+	renderHazardButtons() {
+		if (!this.state.hazards.length) {
+			return null
+		}
+
+		const {buttonStyles} = Session.getTheme()
+
+		return this.state.hazards.map(hazard => <Button menu
+			icon="exclamation"
+			key={hazard.id}
+			theme={buttonStyles.primary}
+			title={hazard.type + ' ' + hazard.name}
+			onPress={() => {
+				this.gotoSurvey(hazard)
+			}} />)
+	}
 	renderLoading() {
 		return <Container>
 			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>

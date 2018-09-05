@@ -28,33 +28,12 @@ class HtmlView extends Component
 
     intercept(request) {
         if (request.url.indexOf("www/index.html") >= 0) {
-            this.confirmLeave()
-            return false    
+            this.props.navigation.goBack(null)
+            return false
         }
         return true
     }
 
-    async confirmLeave() {
-
-        if ( ! this.props.sensitive) {
-            return this.props.navigation.goBack(null)
-        }
-
-        const promise = new Promise((resolve, reject) => {
-        Alert.alert(
-          "Do you really want to leave?",
-          "Any unsaved progress will be LOST. Do you want to exit now?",
-          [
-            { text: "Yes, Leave", onPress: () => {resolve(true); this.props.navigation.goBack(null)} },
-            { text: "Cancel", onPress: () => {resolve(false)}, style: "cancel" }
-          ],
-          { cancelable: true }
-        );
-        
-        })
-
-        return promise
-    }
     
     render() {
         return <View style={{flex:1}}>
