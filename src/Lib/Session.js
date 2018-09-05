@@ -90,9 +90,6 @@ class Session {
     }
 
     getTheme() {
-		if (this.get('domain') === 'philippines') {
-		    return Themes.philippines
-		}
 		return Themes.default
     }
 

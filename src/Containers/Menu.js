@@ -139,11 +139,10 @@ class Menu extends Component {
 				</View>
 			</Content>
 			</ImageBackground>
-			<Footer style={{backgroundColor: 'white', flexDirection:'column', alignItems:'center'}}>
+			<Footer style={{backgroundColor: 'white', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
 				<Text style={styles.footerText}>
 					Survey version: {this.state.version}
 				</Text>
-				<Button link title="Connect to other domain" icon="chevron-circle-left" style={styles.exitButton} onPress={this.exit} />
 			</Footer>
 		</Container>
   	}

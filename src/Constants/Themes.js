@@ -2,23 +2,6 @@ import Colors from './Colors'
 
 export default {
     default: {
-        background: null,
-        buttonStyles: {
-            primary: {
-                text: '#fff',
-                background: Colors.darkGreen,
-            },
-            secondary: {
-                text: '#fff',
-                background: Colors.lightBlue,
-            },
-            other: {
-                text: Colors.textColor,
-                background: Colors.lightGrey,
-            },            
-        },
-    },
-    philippines: {
         background: require('../Assets/philippines.png'),
         buttonStyles: {
             primary: {
@@ -32,7 +15,7 @@ export default {
             other: {
                 text: '#5A5A5A',
                 background: '#D7D7D7',
-            },
+            },      
         },
     },
 }

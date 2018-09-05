@@ -3,6 +3,7 @@ import {NavigationActions} from 'react-navigation'
 import Api from '../Lib/Api'
 import Alerts from '../Lib/Alerts'
 import Session from '../Lib/Session'
+import ConnectFlow from './ConnectFlow'
 import Connectivity from '../Lib/Connectivity'
 
 export default async (navigation) => {
@@ -67,7 +68,7 @@ export default async (navigation) => {
     if (!Session.hasValidSession()) {
         // There's no session.
         // Go to the initial connection page.
-        return resetTo("Connect")
+        await ConnectFlow.handle()
     }
     
     // Sets the active domain, and if exists, token

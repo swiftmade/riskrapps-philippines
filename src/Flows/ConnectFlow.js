@@ -4,7 +4,9 @@ import RNFS from "react-native-fs";
 
 class ConnectFlow {
 
-    async handle(domain) {
+    async handle() {
+
+        const domain = 'philippines'
         
         Api.setDomain(domain)
 
