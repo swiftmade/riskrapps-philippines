@@ -10,7 +10,6 @@ class HtmlView extends Component
 {
     constructor(props) {
         super(props)
-        this.intercept = this.intercept.bind(this)
         this.rejectBackButton = this.rejectBackButton.bind(this)
     }
 
@@ -26,25 +25,20 @@ class HtmlView extends Component
         return !this.props.hasOwnProperty('allowBackButton')
     }
 
-    intercept(request) {
-        if (request.url.indexOf("www/index.html") >= 0) {
+    _handleStateChange(event) {
+        if(event.url.indexOf('/index.html') >= 0) {
             this.props.navigation.goBack(null)
-            return false
         }
-        return true
     }
-
-    
+ 
     render() {
         return <View style={{flex:1}}>
                 {this.renderiOSStatusBarMargin()}
                 <CustomWebview source={this.props.source}
                 bounces={false}
                 domStorageEnabled={true}
-                onShouldStartLoadWithRequest={this.intercept}
-                allowUniversalAccessFromFileURLs={true} onError={() => {
-                    this.props.navigation.goBack(null)
-                }}  />
+                onNavigationStateChange={this._handleStateChange.bind(this)}
+                allowUniversalAccessFromFileURLs={true}  />
         </View>
     }
 

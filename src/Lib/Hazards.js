@@ -1,5 +1,14 @@
 import { AsyncStorage } from "react-native"
 
+const HAZARD_TYPES = {
+    'e': 'Earthquake',
+    'f': 'Fire',
+    'typ': 'Typhoon',
+    'tsu': 'Tsunami',
+    'tro': 'Tropical Storm',
+    'other': 'Other',
+}
+
 class Hazards {
 
     keyPrefix() {
@@ -11,26 +20,13 @@ class Hazards {
     }
 
     async parseAndAddFromUrl(url) {
-        url = url.replace('radar://s/', '')
-        let parts = url.split('/')
+        let [id, name, type, date] = url
+            .replace('radar://s/', '')
+            .split('/')
+            .map(part => decodeURIComponent(part))
 
-        let types = {
-            'e': 'Earthquake',
-            'f': 'Fire',
-            'typ': 'Typhoon',
-            'tsu': 'Tsunami',
-            'tro': 'Tropical Storm',
-            'other': 'Other',
-        }
-
-        let hazard = {
-            id: parts[0],
-            name: parts[1],
-            type: types[parts[2]],
-            date: parts[3]
-        }
-
-        return this.addHazard(hazard.id, hazard)
+        type = HAZARD_TYPES[type]
+        return this.addHazard(id, { id, name, type, date })
     }
 
     async addHazard(id, data) {
