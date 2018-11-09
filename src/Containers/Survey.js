@@ -14,7 +14,6 @@ class Survey extends Component
         }
     }
 
-
     componentDidMount() {
         const {state, setParams} = this.props.navigation
         const {hazard} = state.params
@@ -35,6 +34,7 @@ class Survey extends Component
         const uri = baseUri + "/survey.html?" + Query({
             lang: "en",
             mode: "offline",
+            sms: '+639221003107',
             survey: Files.surveyJson(),
             db: Session.get("domain"),
             bg: Session.bgPath(),

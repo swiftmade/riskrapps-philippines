@@ -133,9 +133,9 @@ class Menu extends Component {
 				
 				<View style={styles.buttons}>
 				{this.renderHazardButtons()}
-
-				<Button menu theme={buttonStyles.secondary} title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
+				
 				{/*
+				<Button menu theme={buttonStyles.secondary} title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
 				<Button menu theme={buttonStyles.other} title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
 				*/}
 				</View>

@@ -21,7 +21,7 @@ class Hazards {
 
     async parseAndAddFromUrl(url) {
         let [id, name, type, date] = url
-            .replace('radar://s/', '')
+            .replace('http://rdr/', '')
             .split('/')
             .map(part => decodeURIComponent(part))
 
