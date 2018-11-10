@@ -40,7 +40,8 @@ class Survey extends Component
             bg: Session.bgPath(),
             session: this.state.title,
             session_extra: JSON.stringify({
-                hazardId: this.state.hazard.id
+                uid: Session.get('auth.id'),
+                hid: this.state.hazard.id,
             })
             //novalidate: true,
         });
