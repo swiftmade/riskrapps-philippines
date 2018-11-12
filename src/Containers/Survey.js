@@ -34,7 +34,12 @@ class Survey extends Component
         const uri = baseUri + "/survey.html?" + Query({
             lang: "en",
             mode: "offline",
+            // Submission settings
+            instant_submit: 1,
             sms: '+639221003107',
+            auth: Session.get('auth.token'),
+            submit: Session.get("settings.url") + "/openrosa/submissions",
+            // Survey/session settings
             survey: Files.surveyJson(),
             db: Session.get("domain"),
             bg: Session.bgPath(),
