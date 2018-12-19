@@ -36,7 +36,7 @@ class Survey extends Component
             mode: "offline",
             // Submission settings
             instant_submit: 1,
-            sms: '+639221003107',
+            sms: '+14708008918',
             auth: Session.get('auth.token'),
             submit: Session.get("settings.url") + "/openrosa/submissions",
             // Survey/session settings
