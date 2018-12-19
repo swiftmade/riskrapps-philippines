@@ -30,8 +30,8 @@ class Menu extends Component {
 		this.exit = this.exit.bind(this)
 		this.login = this.login.bind(this)
 		this.logout = this.logout.bind(this)
-		this.checkForUpdates = this.checkForUpdates.bind(this)
-		this.uploadSubmissions = this.uploadSubmissions.bind(this)
+		this.gotoSettings = this.gotoSettings.bind(this)
+		// this.checkForUpdates = this.checkForUpdates.bind(this)
 	}
 
 	componentWillMount() {
@@ -63,8 +63,8 @@ class Menu extends Component {
 		this.props.navigation.navigate('Survey', {hazard})
 	}
 
-	uploadSubmissions() {
-		this.props.navigation.navigate('Upload', {title: 'Upload Submissions'})
+	gotoSettings() {
+		this.props.navigation.navigate('Settings')
 	}
 
 	async checkForUpdates() {
@@ -126,7 +126,7 @@ class Menu extends Component {
 			<ImageBackground source={background} style={{flex:1}} opacity={0.4}>
 			<Content contentContainerStyle={{ alignItems:'center', padding:16}}>
 
-				<View style={{flexDirection:'row', alignItems:'center',}}>
+				<View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
 				<PortalLogo />
 				<Text wrapTitle style={{marginLeft:16}}>{this.state.title}</Text>
 				</View>
@@ -136,8 +136,9 @@ class Menu extends Component {
 				
 				{/*
 				<Button menu theme={buttonStyles.secondary} title="Upload Submissions" icon="upload" onPress={this.uploadSubmissions} />
-				<Button menu theme={buttonStyles.other} title="Check for Updates" icon="refresh" style={{ marginTop: 32 }} onPress={this.checkForUpdates} />          
+				
 				*/}
+				<Button menu theme={buttonStyles.other} title="Settings" icon="cogs" style={{ marginTop: 32 }} onPress={this.gotoSettings} />          
 				</View>
 
 				<View style={styles.footer}>

@@ -4,8 +4,8 @@ import Menu from '../Containers/Menu'
 import Login from '../Containers/Login'
 import Survey from '../Containers/Survey'
 import Launch from '../Containers/Launch'
-import Upload from '../Containers/Upload'
 import Connect from '../Containers/Connect'
+import Settings from '../Containers/Settings'
 
 export default StackNavigator({
     Launch: {screen: Launch, navigationOptions: { header: null}},
@@ -18,8 +18,8 @@ export default StackNavigator({
             title: `${state.params.title || 'Loading...'}`,
         };
     }},
+    Settings: {screen: Settings, navigationOptions: {header: null}},
     Launch: {screen: Launch, navigationOptions: { header: null}},
-    Upload: {screen: Upload, navigationOptions: { header: null}},
 }, {
     initialRouteName: 'Launch',
     navigationOptions: {
