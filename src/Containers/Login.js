@@ -114,7 +114,6 @@ class Login extends Component
               
             </View>
             {this.renderButton()}
-            {this.renderCancelButton()}
           </Container>;
     }
     
@@ -123,19 +122,6 @@ class Login extends Component
             return <ActivityIndicator size="large" color={Colors.darkBlue} style={{marginTop:15}} />
         }
         return <Button login title="Connect" onPress={this.login} />
-    }
-
-    renderCancelButton() {
-        let optional = false
-        try {
-            if(this.props.navigation.state.params.optional) {
-                optional = true
-            }
-        } catch(e) {}
-        
-        return <Button link title="Don't Login" onPress={() => {
-            optional ? this.reset() : this.restart()
-        }} />
     }
 }
 
