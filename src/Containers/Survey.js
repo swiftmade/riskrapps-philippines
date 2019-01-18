@@ -47,7 +47,8 @@ class Survey extends Component
             session_extra: JSON.stringify({
                 uid: Session.get('auth.id'),
                 hid: this.state.hazard.id,
-            })
+            }),
+            jumpto: "off",
             //novalidate: true,
         });
 
