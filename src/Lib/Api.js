@@ -40,9 +40,23 @@ class Api {
             .then((response) => {
                 return response.data
             })
-            .catch(() => {
-                throw new Error('Invalid e-mail or password.')
+            .catch((e) => {
+                throw new Error(this._loginErrorFromHttpStatus(
+                    e.response.status
+                ))
             })
+    }
+
+    _loginErrorFromHttpStatus(status) {
+        const errors = {
+            404: 'Resource not found.',
+            429: 'Too many attempts. Please try again later.',
+            500: 'Internal error occured.',
+            422: 'Invalid e-mail or password.',
+        }
+        return errors.hasOwnProperty(status)
+            ? errors[status]
+            : 'Unknown error occured.'
     }
 
     refreshToken() {
