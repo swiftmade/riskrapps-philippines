@@ -67,6 +67,9 @@ class Session {
     }
 
     get(key, def = null) {
+        if (key === 'settings.title.en' || key === 'settings.name.en') {
+            return 'RADaR App';
+        }
         return _.get(this.session, key, def)
     }
 
