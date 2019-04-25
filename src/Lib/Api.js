@@ -64,7 +64,8 @@ class Api {
             .then((response) => {
                 return response.data.token.replace('Bearer ', '')
             })
-            .catch(() => {
+            .catch((e) => {
+                console.error(e)
                 throw new Error('Session expired!')
             })
     }

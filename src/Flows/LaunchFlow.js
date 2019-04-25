@@ -20,6 +20,10 @@ const _resetTo = (navigation, screenName) => {
 }
 
 export const openHazardSurvey = async (navigation, hazard) => {
+    if (!Session.get('auth.token')) {
+        Alerts.error('Not authenticated!', 'Please log in first to enter the survey.')
+        return _resetTo(navigation, 'Login')
+    }
     await _resetTo(navigation, 'Menu')
     return navigation.navigate('Survey', {hazard})
 }
