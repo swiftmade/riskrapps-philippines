@@ -10,6 +10,9 @@ const show = (alertType, title, message) => {
 }
 
 export default {
+    show(type, message) {
+        return show(type, message)
+    },
     error(title, message) {
         return show('error', title, message)
     }

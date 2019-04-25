@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import {Alert} from 'react-native'
-import RNFS from 'react-native-fs'
-import Files from '../Lib/Files'
-import {Platform, View, BackHandler} from 'react-native'
+import querystring from 'query-string'
+import {View, BackHandler} from 'react-native'
+import {NavigationActions} from 'react-navigation'
+
+import Alerts from '../Lib/Alerts'
 import CustomWebview from './CustomWebview'
-import {Container, Content} from 'native-base'
 
 class HtmlView extends Component
 {
@@ -27,8 +27,25 @@ class HtmlView extends Component
 
     _handleStateChange(event) {
         if(event.url.indexOf('/index.html') >= 0) {
-            this.props.navigation.goBack(null)
+            const message = this._extractMessageFromUrl(event.url)
+            this.props.navigation.dispatch(
+                NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({routeName: "Menu", params: {
+                        message
+                    }})],
+                })
+            )            
         }
+    }
+
+    _extractMessageFromUrl(url) {
+        const query = url.substr(url.indexOf("?") + 1, url.length)
+        const params = querystring.parse(query)
+        if (!params.message) {
+            return null
+        }
+        return params
     }
  
     render() {
