@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.oblongmana.webviewfileuploadandroid.AndroidWebViewPackage;
-import com.riskrapps_philippines.CustomWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
@@ -29,8 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new AndroidWebViewPackage(),
             new VectorIconsPackage(),
-            new RNFSPackage(),
-            new CustomWebViewPackage()
+            new RNFSPackage()
       );
     }
 

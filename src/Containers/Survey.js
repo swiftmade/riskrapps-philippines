@@ -14,7 +14,7 @@ class Survey extends Component
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const {state, setParams} = this.props.navigation
         const {hazard} = state.params
 
