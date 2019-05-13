@@ -1,11 +1,14 @@
+import RNFS from "react-native-fs"
 import {Linking} from 'react-native'
+import { unzip } from 'react-native-zip-archive'
 import {NavigationActions} from 'react-navigation'
 
-import Api from '../Lib/Api'
-import Alerts from '../Lib/Alerts'
-import Session from '../Lib/Session'
-import ConnectFlow from './ConnectFlow'
-import Connectivity from '../Lib/Connectivity'
+import Api from 'ssas-app-core/src/Lib/Api'
+import Files from 'ssas-app-core/src/Lib/Files'
+import Alerts from 'ssas-app-core/src/Lib/Alerts'
+import Session from 'ssas-app-core/src/Lib/Session'
+import Connectivity from 'ssas-app-core/src/Lib/Connectivity'
+
 import Hazards from '../Lib/Hazards'
 
 const _resetTo = (navigation, screenName) => {
@@ -25,26 +28,52 @@ export const openHazardSurvey = async (navigation, hazard) => {
         return _resetTo(navigation, 'Login')
     }
     await _resetTo(navigation, 'Menu')
-    return navigation.navigate('Survey', {hazard})
+    return navigation.navigate('Survey', {hazard, title: hazard.name})
 }
 
-export default async (navigation) => {
+export default async (navigation, onProgress) => {
     // Resets the navigation stack
     const resetTo = (screenName) => _resetTo(navigation, screenName)
 
-    const downloadSurveyIfNeeded = async () => {
-        if (Session.isMissingSurvey()) {
-            await Api.downloadSurvey()
-            await Session.update({
-                survey_downloaded: true
-            })
+    const cleanExtractedSurveyFiles = async () => {
+        try {
+            await RNFS.unlink(Files.surveyFolder())
+        } catch (e) {
+            // Folder not found... Skip silently...
+        }
+    }
+    
+    const downloadSurveyZipIfNeeded = async () => {
+        if ( ! Session.needsToDownloadSurvey()) {
+            return
+        }
+        await cleanExtractedSurveyFiles()
+        await Api.downloadSurveyZip(
+            Files.surveyZip(),
+            progress => onProgress(progress)
+        )
+        await Session.update({
+            survey_downloaded: Session.get('survey.version')
+        })
+    }
+    
+    const extractSurveyZipIfFound = async () => {
+        const zipFound = await RNFS.exists(
+            Files.surveyZip()
+        )
+        if (zipFound) {
+            await unzip(
+                Files.surveyZip(),
+                Files.surveyFolder()
+            )
+            await RNFS.unlink(Files.surveyZip())
         }
     }
 
     const continueToApplication = async () => {
-        
         try {
-            await downloadSurveyIfNeeded()
+            await downloadSurveyZipIfNeeded()
+            await extractSurveyZipIfFound()
         } catch(error) {
             Alerts.error('Oops!', error.toString())
             Session.destroy()
@@ -88,9 +117,13 @@ export default async (navigation) => {
     if (!Session.hasValidSession()) {
         // There's no session.
         // Go to the initial connection page.
-        await ConnectFlow.handle()
+        return resetTo("Connect")
     }
-    
+
+    const settings = Session.get('settings')
+    settings.name.en = 'PDDNA App'
+    Session.update({settings})    
+
     // Sets the active domain, and if exists, token
     Api.configureFromSession()
 
@@ -104,7 +137,7 @@ export default async (navigation) => {
         // Check internet connectivity...
         return await refreshTokenAndStart()
     }
-    
+
     // Otherwise, just go to the menu.
     return await continueToApplication()
 }

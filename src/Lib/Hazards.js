@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage";
 
 const HAZARD_TYPES = {
     'e': 'Earthquake',
@@ -22,7 +22,7 @@ class Hazards {
     async parseAndAddFromUrl(url) {
         let [id, name, type, date] = url
             .replace('http://rdr.app/', '')
-            .replace('radar://', '')
+            .replace('rdr://', '')
             .split('/')
             .map(part => decodeURIComponent(part))
 

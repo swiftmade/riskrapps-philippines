@@ -1,19 +1,33 @@
-import React, { Component } from "react";
-import Colors from "../Constants/Colors";
-import Images from '../Constants/Images'
-import Text from "../Components/Text";
-import PortalLogo from "../Components/PortalLogo";
-import Button from "../Components/Button";
-import Session from "../Lib/Session";
-import Hazards from "../Lib/Hazards";
-import ConnectFlow from "../Flows/ConnectFlow";
-import Alerts from "../Lib/Alerts";
-import { View, Image, ActivityIndicator, StyleSheet, ImageBackground } from "react-native";
+import React, { Component } from "react"
+import {
+    View,
+    Image,
+    ActivityIndicator,
+    StyleSheet,
+    ImageBackground
+} from "react-native"
+
 import {NavigationActions} from 'react-navigation'
 
-import {Container, Content, Header, Footer} from 'native-base'
+import {
+    Container,
+    Content,
+    Header,
+    Footer
+} from 'native-base'
 
-import CurrentUser from '../Components/CurrentUser'
+import { AppCore } from "ssas-app-core";
+import Alerts from "ssas-app-core/src/Lib/Alerts";
+import Session from "ssas-app-core/src/Lib/Session"
+import Text from "ssas-app-core/src/Components/Text"
+import Images from 'ssas-app-core/src/Constants/Images'
+import Colors from "ssas-app-core/src/Constants/Colors"
+import Button from "ssas-app-core/src/Components/Button"
+import ConnectFlow from "ssas-app-core/src/Flows/ConnectFlow"
+import PortalLogo from "ssas-app-core/src/Components/PortalLogo"
+import CurrentUser from 'ssas-app-core/src/Components/CurrentUser'
+
+import Hazards from "../Lib/Hazards"
 
 class Menu extends Component {
 
@@ -33,6 +47,14 @@ class Menu extends Component {
 		this.checkForUpdates = this.checkForUpdates.bind(this)
 		this.uploadSubmissions = this.uploadSubmissions.bind(this)
 	}
+
+
+	componentDidMount() {
+		if (this.props.navigation.state.params && this.props.navigation.state.params.message) {
+			const {message_type, message} = this.props.navigation.state.params.message
+			Alerts.show(message_type, message)
+		}
+	}	
 
 	componentWillMount() {
 		this.setState({
@@ -57,13 +79,6 @@ class Menu extends Component {
 		Hazards.allHazards().then(hazards => this.setState({
 			hazards: hazards.reverse().slice(0, 3)
 		}))
-	}
-
-	componentDidMount() {
-		if (this.props.navigation.state.params && this.props.navigation.state.params.message) {
-			const {message_type, message} = this.props.navigation.state.params.message
-			Alerts.show(message_type, message)
-		}
 	}
 
 	gotoSurvey(hazard) {
@@ -119,7 +134,7 @@ class Menu extends Component {
 
 	renderMenu() {
 
-		const {background, buttonStyles} = Session.getTheme()
+		const {background, buttonStyles} = AppCore.getTheme()
 		
 		return <Container style={{backgroundColor:'white'}}>
 			<Header style={{backgroundColor:'white', alignItems:'center'}}>
@@ -167,7 +182,7 @@ class Menu extends Component {
 			return null
 		}
 
-		const {buttonStyles} = Session.getTheme()
+		const {buttonStyles} = AppCore.get('theme')
 
 		return this.state.hazards.map(hazard => <Button menu
 			icon="exclamation"
