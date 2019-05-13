@@ -10,8 +10,8 @@
     "@react-native-community/async-storage": "^1.2.1",
     "axios": "^0.18.0",
     "native-base": "^2.3.10",
-    "react": "16.2.0",
-    "react-native": "0.54",
+    "react": "16.8.3",
+    "react-native": "0.59.4",
     "react-native-fs": "^2.9.11",
     "react-native-message-bar": "^2.0.9",
     "react-native-vector-icons": "^4.5.0",
@@ -21,11 +21,12 @@
     "ssas-app-core": "^1.2.3"
   },
   "devDependencies": {
-    "babel-jest": "22.4.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "22.4.0",
-    "react-native-dotenv": "^0.1.1",
-    "react-test-renderer": "16.2.0"
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "babel-jest": "^24.7.1",
+    "jest": "^24.7.1",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
