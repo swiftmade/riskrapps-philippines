@@ -1,5 +1,19 @@
 import { AppRegistry } from 'react-native';
 
-import Main from './src/App/Main'
+import { AppCore } from 'ssas-app-core';
+import Themes from 'ssas-app-core/src/Constants/Themes';
 
-AppRegistry.registerComponent('riskrapps_philippines', () => Main);
+import AppMain from './src/App/Main';
+import surveyParams from './src/Extend/surveyParams';
+
+AppCore.configure({
+    theme: Themes.philippines,
+    domainLock: "philippines",
+    defaultLaunchName: "RADaR",
+    navigation: require('./src/App/Navigation').default,
+    defaultLaunchLogo: require('./src/Assets/philippines.png'),
+
+    extendSurveyParams: surveyParams,
+});
+
+AppRegistry.registerComponent('riskrapps_philippines', () => AppMain);

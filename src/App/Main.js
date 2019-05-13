@@ -1,29 +1,24 @@
-import React, {Component} from 'react'
-import {View, Linking} from 'react-native'
-import {MessageBar, MessageBarManager} from 'react-native-message-bar'
+import {Linking} from 'react-native'
+import {App} from "ssas-app-core"
 
 import Hazards from '../Lib/Hazards'
-import Navigation from './Navigation'
 import {openHazardSurvey} from '../Flows/LaunchFlow'
 
-export default class Main extends Component
+export default class AppMain extends App
 {
     constructor(props) {
         super(props)
         this.handleUrl = this.handleUrl.bind(this)
         this.handleOpenURL = this.handleOpenURL.bind(this)
     }
+    
     componentDidMount() {
-        // Register the alert located on this master page
-        // This MessageBar will be accessible from the current (same) component, and from its child component
-        // The MessageBar is then declared only once, in your main component.
-        MessageBarManager.registerMessageBar(this.refs.alert)
+        super.componentDidMount()
         Linking.addEventListener('url', this.handleOpenURL)
     }
 
     componentWillUnmount() {
-        // Remove the alert located on this master page from the manager
-        MessageBarManager.unregisterMessageBar()
+        super.componentWillUnmount()
         Linking.removeEventListener('url', this.handleOpenURL)
     }
 
@@ -39,10 +34,4 @@ export default class Main extends Component
         openHazardSurvey(this.navigator, hazard)
     }
 
-    render() {
-        return <View style={{flex:1}}>
-            <Navigation ref={nav => this.navigator = nav._navigation} />
-            <MessageBar ref="alert" />
-        </View>
-    }
 }
