@@ -134,7 +134,7 @@ class Menu extends Component {
 
 	renderMenu() {
 
-		const {background, buttonStyles} = AppCore.getTheme()
+		const {background, buttonStyles} = AppCore.get('theme')
 		
 		return <Container style={{backgroundColor:'white'}}>
 			<Header style={{backgroundColor:'white', alignItems:'center'}}>
