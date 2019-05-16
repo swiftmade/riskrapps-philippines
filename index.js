@@ -11,7 +11,6 @@ AppCore.configure({
     domainLock: "philippines",
     defaultLaunchName: "RADaR",
     navigation: require('./src/App/Navigation').default,
-    defaultLaunchLogo: require('./src/Assets/philippines.png'),
 
     extendSurveyParams: surveyParams,
 });
