@@ -18,7 +18,7 @@
     "react-native-webview": "^5.4.6",
     "react-native-zip-archive": "^4.0.0",
     "react-navigation": "^1.5.8",
-    "ssas-app-core": "^1.2.3"
+    "ssas-app-core": "^1.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

@@ -5854,18 +5854,18 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssas-app-core@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/ssas-app-core/-/ssas-app-core-1.2.3.tgz#9632f34d9dfbe1a2849aa1a9189aedc875dee576"
-  integrity sha512-q3ff2e/5YRlWoL5q8zZLO9oAXV8/ZIWwp50/d4ScM66Y3jZm8yBrYLL5SFeEqfHtjlhXGDn29FL4zQ2nX8KtKQ==
+ssas-app-core@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ssas-app-core/-/ssas-app-core-1.2.4.tgz#c118a59ef53bb4f2a29a010357139354618f40a8"
+  integrity sha512-CrPNUase6eWERLvh4cM5FrB1ncpXeKV9gTqWui4lWVF4R7iRyPHJiXLXCTcDlR1u+Z9DYwvM3Mb7+YxnGYI2SQ==
   dependencies:
     query-string "^6.5.0"
-    ssas-enketo "^2.0.9"
+    ssas-enketo "2.0.x"
 
-ssas-enketo@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/ssas-enketo/-/ssas-enketo-2.0.9.tgz#62dfa7ac031fee65cb6566afed298ecf3f442a90"
-  integrity sha512-9jTZQYTcCYSiykxns8Rc2E9LSWFKy9oOpl6+woKdojPL988q+0fPNKTENxtt4lU/TyBxulSCbu/jnH7FnRrAMA==
+ssas-enketo@2.0.x:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/ssas-enketo/-/ssas-enketo-2.0.10.tgz#889ac959828e903fa1a55a7a77050b76f76838d3"
+  integrity sha512-suOHWIhFDnvpTxflE3kg3GXf+fC6SEq+Y6+vlW68EDY+m8WY3EuGKHQkD6QqVAQZ7UVfXNo+t0YRYENjZgG+qA==
 
 sshpk@^1.7.0:
   version "1.16.1"
